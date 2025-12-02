@@ -1,6 +1,9 @@
 # Nothing Theme
 
-Custom Drupal 11 theme based on Tailwind CSS Starter Kit 5.0.0-alpha4.
+<h3 style="font-weight: bold; color: red;">This pet project still in dev.</h3>
+
+Custom Drupal 11 theme based on Tailwind CSS Starter Kit 5.0.0-alpha4 and can be used as basic theme for tailwind based themes.
+
 
 ## Requirements
 
@@ -88,36 +91,6 @@ npm run prod
 ```
 
 Creates an optimized CSS version with minimal file size.
-
-## Theme Structure
-
-```
-nothing/
-├── scripts/              # Build scripts
-│   ├── build.sh         # Build CSS
-│   ├── watch.sh         # Watch mode
-│   └── install.sh       # Install dependencies
-├── src/
-│   └── css/
-│       └── input.css    # Source CSS with Tailwind directives
-├── css/
-│   └── style.css        # Compiled CSS (auto-generated)
-├── templates/           # Twig templates
-│   ├── layout/          # Layout templates
-│   │   └── page.html.twig
-│   ├── content/         # Content type templates
-│   │   └── node--page.html.twig
-│   └── commerce/        # Commerce templates
-│       ├── commerce-product--default.html.twig
-│       └── commerce-product--teaser.html.twig
-├── js/
-│   └── script.js        # JavaScript files
-├── nothing.info.yml     # Theme info
-├── nothing.libraries.yml # Theme libraries
-├── tailwind.config.js   # Tailwind configuration
-├── package.json         # NPM dependencies
-└── README.md            # This file
-```
 
 ## Working with Tailwind CSS
 
