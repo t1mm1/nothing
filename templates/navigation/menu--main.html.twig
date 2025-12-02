@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Theme override for main navigation menu (primary menu).
+ */
+#}
+{% import _self as menus %}
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% if items %}
+    {% if menu_level == 0 %}
+      <ul{{ attributes.addClass('flex flex-col gap-y-4 mt-5 lg:flex-row lg:justify-center lg:items-center lg:gap-x-7 lg:mt-0 list-none m-0 p-0') }}>
+    {% else %}
+      <ul class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block z-50 list-none m-0 p-0">
+    {% endif %}
+
+    {% for item in items %}
+      {% set item_classes = [
+        'list-none',
+        menu_level > 0 ? 'relative group' : '',
+      ] %}
+
+      <li{{ item.attributes.addClass(item_classes) }}>
+        {% set link_classes = [
+          'inline-block transition-colors duration-400 no-underline',
+          menu_level == 0 ? 'text-black hover:text-yellow-400 focus:text-yellow-400 font-medium' : 'block px-4 py-2 text-gray-700 hover:bg-gray-100',
+          item.in_active_trail ? 'text-yellow-400' : '',
+        ] %}
+
+        {{ link(item.title, item.url, { 'class': link_classes }) }}
+
+        {% if item.below %}
+          {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+
+  </ul>
+  {% endif %}
+{% endmacro %}
+
+{{ menus.menu_links(items, attributes, 0) }}

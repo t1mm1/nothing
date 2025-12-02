@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Theme override for an individual form element with multiple values.
+ */
+#}
+{% if multiple %}
+  <div class="space-y-4">
+    {% if table %}
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+          {{ table }}
+          </thead>
+        </table>
+      </div>
+    {% endif %}
+    {{ elements }}
+    {% if button %}
+      <div class="mt-4">
+        {{ button }}
+      </div>
+    {% endif %}
+  </div>
+{% else %}
+  {{ elements }}
+{% endif %}

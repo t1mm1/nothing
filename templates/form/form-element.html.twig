@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Theme override for a form element wrapper.
+ */
+#}
+{% set classes = [
+  'mb-6',
+  type == 'checkbox' ? 'flex items-start' : '',
+  type == 'radio' ? 'flex items-start' : '',
+] %}
+
+<div{{ attributes.addClass(classes) }}>
+  {% if label_display == 'before' %}
+    {{ label }}
+  {% endif %}
+
+  {% if prefix %}
+    <span class="text-sm text-gray-600 mb-2 block">{{ prefix }}</span>
+  {% endif %}
+
+  {{ children }}
+
+  {% if suffix %}
+    <span class="text-sm text-gray-600 mt-2 block">{{ suffix }}</span>
+  {% endif %}
+
+  {% if label_display == 'after' %}
+    {{ label }}
+  {% endif %}
+
+  {% if errors %}
+    <div class="mt-2 text-sm text-red-600">
+      {{ errors }}
+    </div>
+  {% endif %}
+
+  {% if description %}
+    <div class="mt-2 text-sm text-gray-600">
+      {{ description }}
+    </div>
+  {% endif %}
+</div>

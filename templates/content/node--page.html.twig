@@ -1,0 +1,41 @@
+{#
+/**
+ * @file
+ * Theme override to display a page content type.
+ */
+#}
+<article{{ attributes.addClass('node', 'node--type-' ~ node.bundle|clean_class, 'node--view-mode-' ~ view_mode|clean_class) }}>
+
+  {% if not page %}
+    <header class="mb-6">
+      {{ title_prefix }}
+      <h2{{ title_attributes.addClass('text-3xl font-bold text-gray-900 mb-4') }}>
+        <a href="{{ url }}" rel="bookmark" class="hover:text-blue-600 transition-colors">{{ label }}</a>
+      </h2>
+      {{ title_suffix }}
+    </header>
+  {% endif %}
+
+  <div{{ content_attributes.addClass('node__content', 'prose max-w-none') }}>
+
+    {% if display_submitted %}
+      <div class="node__meta text-sm text-gray-600 mb-6 pb-4 border-b border-gray-200">
+        <span class="font-semibold">{{ author_name }}</span>
+        <span class="mx-2">•</span>
+        <time datetime="{{ date }}" class="italic">{{ date }}</time>
+      </div>
+    {% endif %}
+
+    {% if content.field_image %}
+      <div class="mb-8">
+        {{ content.field_image }}
+      </div>
+    {% endif %}
+
+    <div class="text-gray-700 leading-relaxed">
+      {{ content|without('field_image') }}
+    </div>
+
+  </div>
+
+</article>

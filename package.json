@@ -1,0 +1,20 @@
+{
+  "name": "nothing",
+  "version": "1.0.0",
+  "description": "Custom Drupal theme based on Tailwind CSS",
+  "author": "Your Name",
+  "license": "MIT",
+  "scripts": {
+    "build": "tailwindcss -i ./src/css/input.css -o ./css/style.css --minify",
+    "dev": "tailwindcss -i ./src/css/input.css -o ./css/style.css --watch",
+    "prod": "NODE_ENV=production tailwindcss -i ./src/css/input.css -o ./css/style.css --minify",
+    "install:deps": "./scripts/install.sh",
+    "build:theme": "./scripts/build.sh",
+    "watch:theme": "./scripts/watch.sh"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
+  }
+}

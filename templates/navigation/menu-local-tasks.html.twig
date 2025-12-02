@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Theme override for tabs (local tasks).
+ *
+ * Available variables:
+ * - primary: Primary tasks (rendered).
+ * - secondary: Secondary tasks (rendered).
+ */
+#}
+{% if primary or secondary %}
+  <nav class="tabs mb-6" role="navigation" aria-label="Tabs">
+
+    {% if primary %}
+      <h2 class="visually-hidden">{{ 'Primary tabs'|t }}</h2>
+      <div class="border-b border-gray-200 bg-white rounded-t-lg">
+        <ul class="flex flex-wrap -mb-px list-none m-0 p-0">
+          {{ primary }}
+        </ul>
+      </div>
+    {% endif %}
+    {% if secondary %}
+      <h2 class="visually-hidden">{{ 'Secondary tabs'|t }}</h2>
+      <div class="mt-2 bg-gray-50 rounded-lg p-2">
+        <ul class="flex flex-wrap space-x-2 list-none m-0 p-0">
+          {{ secondary }}
+        </ul>
+      </div>
+    {% endif %}
+
+  </nav>
+{% endif %}

@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Theme override for account menu (secondary menu).
+ */
+#}
+{% if items %}
+  {# Desktop version #}
+  <ul class="hidden lg:flex items-center gap-x-2 list-none m-0 p-0">
+    {% for item in items %}
+      <li class="list-none">
+        {% set link_classes = [
+          'py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium text-nowrap rounded-xl border transition no-underline disabled:opacity-50 disabled:pointer-events-none',
+          item.in_active_trail ? 'border-transparent bg-blue-600 text-white hover:bg-blue-700' : 'border-transparent bg-yellow-400 text-black hover:bg-yellow-500'
+        ] %}
+
+        {{ link(item.title, item.url, { 'class': link_classes }) }}
+      </li>
+    {% endfor %}
+  </ul>
+
+  {# Mobile version #}
+  <ul class="lg:hidden flex flex-col gap-y-2 list-none m-0 p-0">
+    {% for item in items %}
+      <li class="list-none">
+        {% set link_classes = [
+          'py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border transition no-underline',
+          item.in_active_trail ? 'border-transparent bg-blue-600 text-white hover:bg-blue-700' : 'border-transparent bg-yellow-400 text-black hover:bg-yellow-500'
+        ] %}
+
+        {{ link(item.title, item.url, { 'class': link_classes }) }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

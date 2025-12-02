@@ -1,0 +1,47 @@
+<!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full">
+  <body class="h-full">
+  ```
+-->
+<div class="min-h-screen flex flex-col">
+  <main class="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
+    <div class="text-center">
+      <p class="text-base font-semibold text-indigo-600">Oops!</p>
+      <h1 class="mt-4 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">404 Page not found</h1>
+      <p class="mt-6 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">The page you are looking for cannot be found.</p>
+      <div class="mt-10 flex items-center justify-center gap-x-6">
+        <a href="/" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Go back home</a>
+      </div>
+    </div>
+  </main>
+
+  {# Footer #}
+  {#  {% if page.footer %}#}
+  <footer class="mt-auto w-full py-7 px-4 md:px-6 lg:px-8 mx-auto bg-gray-50">
+    <div class="max-w-[92rem] mx-auto">
+      <div class="items-center">
+        <ul class="text-center">
+          <li class="inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300">
+            <a class="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 transition duration-400" href="#">
+              Home
+            </a>
+          </li>
+          <li class="inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300">
+            <a class="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 transition duration-400" href="#">
+              Pricing
+            </a>
+          </li>
+          <li class="inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300">
+            <a class="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 transition duration-400" href="#">
+              About
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  {#  {% endif %}#}
+</div>

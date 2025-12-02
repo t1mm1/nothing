@@ -1,0 +1,13 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+  js:
+    js/script.js: {}
+
+mobile-menu:
+  js:
+    js/mobile-menu.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery

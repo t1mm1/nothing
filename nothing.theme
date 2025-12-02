@@ -1,0 +1,249 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the Nothing theme.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK() for menu_local_task.
+ */
+function nothing_preprocess_menu_local_task(&$variables) {
+  $link = &$variables['element']['#link'];
+  $is_active = !empty($variables['element']['#active']);
+
+  // Get level from element or default to primary.
+  $level = $variables['element']['#level'] ?? 'primary';
+
+  // Build classes array based on level and active state.
+  if ($level === 'primary') {
+    $classes = [
+      'inline-block',
+      'px-6',
+      'py-3',
+      'border-b-2',
+      'font-medium',
+      'text-sm',
+      'transition-all',
+      'duration-200',
+      'no-underline',
+    ];
+
+    if ($is_active) {
+      $classes = array_merge($classes, [
+        'border-blue-500',
+        'text-blue-600',
+      ]);
+    }
+    else {
+      $classes = array_merge($classes, [
+        'border-transparent',
+        'text-gray-600',
+        'hover:text-blue-600',
+        'hover:border-gray-300',
+      ]);
+    }
+  }
+  else {
+    // Secondary level.
+    $classes = [
+      'inline-block',
+      'px-4',
+      'py-2',
+      'rounded-md',
+      'text-sm',
+      'font-medium',
+      'transition-all',
+      'duration-200',
+      'no-underline',
+    ];
+
+    if ($is_active) {
+      $classes = array_merge($classes, [
+        'bg-blue-100',
+        'text-blue-700',
+      ]);
+    } else {
+      $classes = array_merge($classes, [
+        'text-gray-600',
+        'hover:bg-gray-200',
+        'hover:text-gray-900',
+      ]);
+    }
+  }
+
+  // Add classes to link options.
+  $link['url']->setOption('attributes', ['class' => $classes]);
+
+  // Add level and active state to variables.
+  $variables['level'] = $level;
+  $variables['is_active'] = $is_active;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ */
+function nothing_preprocess_page(&$variables) {
+  $cart_count = 0;
+  $cache_tags = ['cart'];
+
+  if (\Drupal::moduleHandler()->moduleExists('commerce_cart')) {
+    $cart_provider = \Drupal::service('commerce_cart.cart_provider');
+    $carts = $cart_provider->getCarts();
+
+    foreach ($carts as $cart) {
+      $cache_tags[] = 'commerce_order:' . $cart->id();
+      foreach ($cart->getItems() as $item) {
+        $cart_count += (int) $item->getQuantity();
+        $cache_tags[] = 'commerce_order_item:' . $item->id();
+      }
+    }
+
+    $variables['cart_count'] = $cart_count;
+  }
+
+  // Add cache tags for cart.
+  $variables['#cache']['tags'] = array_merge(
+    $variables['#cache']['tags'] ?? [],
+    $cache_tags
+  );
+
+  // Add cache contexts.
+  $variables['#cache']['contexts'][] = 'user';
+  $variables['#cache']['contexts'][] = 'session';
+
+  // Attach mobile menu library.
+  $variables['#attached']['library'][] = 'nothing/mobile-menu';
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for blocks.
+ */
+function nothing_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  // Add template suggestion based on block ID.
+  if (isset($variables['elements']['#id'])) {
+    $suggestions[] = 'block__' . $variables['elements']['#id'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for input.
+ */
+function nothing_preprocess_input(&$variables) {
+  $element = &$variables['element'];
+  $variables['errors'] = !empty($element['#errors']);
+
+  // Add specific classes for different input types.
+  $type = $element['#type'] ?? 'text';
+
+  if (in_array($type, ['checkbox', 'radio'])) {
+    $variables['attributes']['class'][] = 'w-4';
+    $variables['attributes']['class'][] = 'h-4';
+    $variables['attributes']['class'][] = 'text-blue-600';
+    $variables['attributes']['class'][] = 'bg-white';
+    $variables['attributes']['class'][] = 'border-gray-300';
+    $variables['attributes']['class'][] = 'rounded';
+    $variables['attributes']['class'][] = 'focus:ring-2';
+    $variables['attributes']['class'][] = 'focus:ring-blue-500';
+    if ($type === 'radio') {
+      $variables['attributes']['class'][] = 'rounded-full';
+    }
+  }
+  elseif ($type === 'submit') {
+    $variables['attributes']['class'][] = 'w-full';
+    $variables['attributes']['class'][] = 'px-6';
+    $variables['attributes']['class'][] = 'py-3';
+    $variables['attributes']['class'][] = 'bg-blue-600';
+    $variables['attributes']['class'][] = 'text-white';
+    $variables['attributes']['class'][] = 'font-semibold';
+    $variables['attributes']['class'][] = 'rounded-lg';
+    $variables['attributes']['class'][] = 'hover:bg-blue-700';
+    $variables['attributes']['class'][] = 'focus:outline-none';
+    $variables['attributes']['class'][] = 'focus:ring-2';
+    $variables['attributes']['class'][] = 'focus:ring-blue-500';
+    $variables['attributes']['class'][] = 'focus:ring-offset-2';
+    $variables['attributes']['class'][] = 'transition-colors';
+    $variables['attributes']['class'][] = 'duration-200';
+    $variables['attributes']['class'][] = 'disabled:bg-gray-400';
+    $variables['attributes']['class'][] = 'disabled:cursor-not-allowed';
+  }
+  elseif ($type === 'button') {
+    $variables['attributes']['class'][] = 'px-6';
+    $variables['attributes']['class'][] = 'py-3';
+    $variables['attributes']['class'][] = 'bg-gray-200';
+    $variables['attributes']['class'][] = 'text-gray-900';
+    $variables['attributes']['class'][] = 'font-semibold';
+    $variables['attributes']['class'][] = 'rounded-lg';
+    $variables['attributes']['class'][] = 'hover:bg-gray-300';
+    $variables['attributes']['class'][] = 'focus:outline-none';
+    $variables['attributes']['class'][] = 'focus:ring-2';
+    $variables['attributes']['class'][] = 'focus:ring-gray-500';
+    $variables['attributes']['class'][] = 'transition-colors';
+    $variables['attributes']['class'][] = 'duration-200';
+  }
+  elseif ($type === 'file') {
+    $variables['attributes']['class'][] = 'block';
+    $variables['attributes']['class'][] = 'w-full';
+    $variables['attributes']['class'][] = 'text-sm';
+    $variables['attributes']['class'][] = 'text-gray-900';
+    $variables['attributes']['class'][] = 'border';
+    $variables['attributes']['class'][] = 'border-gray-300';
+    $variables['attributes']['class'][] = 'rounded-lg';
+    $variables['attributes']['class'][] = 'cursor-pointer';
+    $variables['attributes']['class'][] = 'bg-white';
+    $variables['attributes']['class'][] = 'focus:outline-none';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for textarea.
+ */
+function nothing_preprocess_textarea(&$variables) {
+  $element = &$variables['element'];
+  $variables['errors'] = !empty($element['#errors']);
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for select.
+ */
+function nothing_preprocess_select(&$variables) {
+  $element = &$variables['element'];
+  $variables['errors'] = !empty($element['#errors']);
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for form_element.
+ */
+function nothing_preprocess_form_element(&$variables) {
+  $element = &$variables['element'];
+  $variables['errors'] = !empty($element['#errors']) ? $element['#errors'] : NULL;
+  $variables['type'] = $element['#type'] ?? NULL;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for form_element_label.
+ */
+function nothing_preprocess_form_element_label(&$variables) {
+  $element = &$variables['element'];
+  $variables['required'] = !empty($element['#required']);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function nothing_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Add Tailwind classes to common form IDs.
+  $form_ids = [
+    'user_login_form',
+    'user_register_form',
+    'user_pass',
+    'user_pass_reset',
+    'contact_message_feedback_form',
+    'search_block_form',
+  ];
+
+  if (in_array($form_id, $form_ids)) {
+    $form['#attributes']['class'][] = 'space-y-6';
+    $form['#attributes']['class'][] = 'max-w-md';
+  }
+}

@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Theme override for a single local task link.
+ *
+ * Available variables:
+ * - link: A link to the task.
+ * - is_active: TRUE if the task is active.
+ * - level: The nesting level (primary or secondary).
+ */
+#}
+{% set classes = [
+  'list-none',
+  level == 'primary' ? 'mr-2' : '',
+] %}
+
+<li{{ attributes.addClass(classes) }}>
+  {{ link }}
+</li>

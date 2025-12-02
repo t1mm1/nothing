@@ -1,0 +1,77 @@
+{#
+/**
+ * @file
+ * Theme override to display a single page.
+ */
+#}
+<div class="min-h-screen flex flex-col">
+
+  {% include '@nothing/navigation/header-navigation.html.twig' %}
+  {% if page.header %}
+    {{ page.header }}
+  {% endif %}
+
+  {# Breadcrumbs #}
+  {% if page.breadcrumb %}
+    <div class="bg-gray-200">
+      <div class="container mx-auto px-6">
+        {{ page.breadcrumb }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Highlighted messages #}
+  {% if page.highlighted %}
+    <div class="bg-white">
+      <div class="container mx-auto px-6 pt-6">
+        {{ page.highlighted }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Main Content #}
+  <main role="main" class="flex-grow">
+    <a id="main-content" tabindex="-1"></a>
+
+    <div class="container mx-auto px-6 py-8">
+      <div class="grid grid-cols-1 gap-8">
+
+        <div class="content-area">
+          {{ page.page_top }}
+          {{ page.content }}
+          {{ page.page_bottom }}
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  {# Footer #}
+  {#  {% if page.footer %}#}
+  <footer class="mt-auto w-full py-7 px-4 md:px-6 lg:px-8 mx-auto bg-gray-50">
+    <div class="max-w-[92rem] mx-auto">
+      <div class="items-center">
+        <ul class="text-center">
+          <li class="inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300">
+            <a class="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 transition duration-400" href="#">
+              Home
+            </a>
+          </li>
+          <li class="inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300">
+            <a class="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 transition duration-400" href="#">
+              Pricing
+            </a>
+          </li>
+          <li class="inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300">
+            <a class="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 transition duration-400" href="#">
+              About
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  {#  {% endif %}#}
+
+</div>

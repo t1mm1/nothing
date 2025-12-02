@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Theme override for a container element.
+ */
+#}
+{% set classes = [
+  has_parent ? '' : 'space-y-6',
+] %}
+
+<div{{ attributes.addClass(classes) }}>
+  {{ children }}
+</div>
