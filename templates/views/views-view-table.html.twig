@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Theme override for displaying a view as a table.
+ */
+#}
+{% set classes = [
+  'min-w-full divide-y divide-gray-200',
+  'bg-white shadow-sm rounded-lg overflow-hidden',
+  'mb-4',
+] %}
+
+<table{{ attributes.addClass(classes) }}>
+  {% if caption_needed %}
+    <caption class="sr-only">
+      {{ caption }}
+    </caption>
+  {% endif %}
+
+  {% if header %}
+    <thead class="bg-gray-50">
+    <tr class="text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+      {% for key, column in header %}
+        <th{{ column.attributes.addClass('px-6 py-4') }} scope="col">
+          {{ column.content }}
+        </th>
+      {% endfor %}
+    </tr>
+    </thead>
+  {% endif %}
+
+  <tbody class="bg-white divide-y divide-gray-200">
+  {% for row in rows %}
+    <tr{{ row.attributes.addClass('hover:bg-gray-50 transition-colors') }}>
+      {% for key, column in row.columns %}
+        <td{{ column.attributes.addClass('px-6 py-4 text-sm text-gray-900') }}>
+          {{ column.content }}
+        </td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

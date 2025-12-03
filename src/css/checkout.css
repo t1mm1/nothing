@@ -1,0 +1,18 @@
+/**
+ * Custom components styles for Nothing theme
+ */
+
+@layer components {
+  fieldset p {
+    @apply border-l-4 border-blue-600 mb-4 pl-4;
+  }
+
+  fieldset legend span {
+    @apply ml-2 text-blue-600 text-xs;
+  }
+
+  fieldset legend span:before,
+  fieldset legend span:after {
+    @apply hidden;
+  }
+}

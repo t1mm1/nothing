@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Theme override for submit button.
+ */
+#}
+{% set classes = [
+  'px-6 py-3 font-semibold rounded-lg',
+  'bg-blue-600 text-white',
+  'hover:bg-blue-700',
+  'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+  'transition-colors duration-200',
+  'disabled:bg-gray-400 disabled:cursor-not-allowed',
+] %}
+
+<input{{ attributes.addClass(classes) }} />

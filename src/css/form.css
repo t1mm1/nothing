@@ -1,0 +1,13 @@
+/**
+ * Custom styles for Nothing theme
+ */
+
+@layer components {
+  .form-wrapper__login-option input.button {
+    @apply mt-2 mr-2;
+  }
+
+  fieldset fieldset:last-child {
+    @apply mb-0;
+  }
+}

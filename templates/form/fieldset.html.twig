@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Theme override for a fieldset element and its children.
+ */
+#}
+{% set classes = [
+  'border-2 border-gray-200 rounded-lg p-6 mb-6',
+  'bg-gray-50',
+] %}
+
+<fieldset{{ attributes.addClass(classes) }}>
+  {% if legend %}
+    <legend class="text-base font-bold text-gray-900 px-3 bg-white border border-gray-200 rounded-md -ml-1">
+      {{ legend|raw }}
+    </legend>
+  {% endif %}
+
+  {% if description %}
+    <div class="text-sm text-gray-600 mb-4 mt-2">
+      {{ description }}
+    </div>
+  {% endif %}
+
+  {% if prefix %}
+    <div class="mb-4">
+      {{ prefix }}
+    </div>
+  {% endif %}
+
+  <div class="space-y-4">
+    {{ children }}
+  </div>
+
+  {% if suffix %}
+    <div class="mt-4">
+      {{ suffix }}
+    </div>
+  {% endif %}
+
+  {% if errors %}
+    <div class="mt-4 text-sm text-red-600">
+      {{ errors }}
+    </div>
+  {% endif %}
+</fieldset>

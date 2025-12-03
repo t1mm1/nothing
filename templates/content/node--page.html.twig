@@ -17,7 +17,6 @@
   {% endif %}
 
   <div{{ content_attributes.addClass('node__content', 'prose max-w-none') }}>
-
     {% if display_submitted %}
       <div class="node__meta text-sm text-gray-600 mb-6 pb-4 border-b border-gray-200">
         <span class="font-semibold">{{ author_name }}</span>
@@ -35,7 +34,6 @@
     <div class="text-gray-700 leading-relaxed">
       {{ content|without('field_image') }}
     </div>
-
   </div>
 
 </article>

@@ -5,9 +5,7 @@
  */
 #}
 {% set classes = [
-  'mb-6',
-  type == 'checkbox' ? 'flex items-start' : '',
-  type == 'radio' ? 'flex items-start' : '',
+  type == 'checkbox' or type == 'radio' ? 'flex gap-2 items-start mb-0' : '',
 ] %}
 
 <div{{ attributes.addClass(classes) }}>
@@ -27,12 +25,6 @@
 
   {% if label_display == 'after' %}
     {{ label }}
-  {% endif %}
-
-  {% if errors %}
-    <div class="mt-2 text-sm text-red-600">
-      {{ errors }}
-    </div>
   {% endif %}
 
   {% if description %}

@@ -5,11 +5,13 @@
  */
 #}
 {% set classes = [
-  'block w-full px-4 py-3 border border-gray-300 rounded-lg',
+  'block pl-4 pr-10 py-3 border border-gray-300 rounded-lg',
   'text-gray-900 bg-white',
   'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent',
   'disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed',
   'transition-colors duration-200 cursor-pointer',
+  'appearance-none',
+  'bg-select-arrow',
   errors ? 'border-red-500 focus:ring-red-500' : '',
 ] %}
 

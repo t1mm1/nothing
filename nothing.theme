@@ -5,10 +5,12 @@
  * Functions to support theming in the Nothing theme.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_preprocess_HOOK() for menu_local_task.
  */
-function nothing_preprocess_menu_local_task(&$variables) {
+function nothing_preprocess_menu_local_task(&$variables): void {
   $link = &$variables['element']['#link'];
   $is_active = !empty($variables['element']['#active']);
 
@@ -63,7 +65,8 @@ function nothing_preprocess_menu_local_task(&$variables) {
         'bg-blue-100',
         'text-blue-700',
       ]);
-    } else {
+    }
+    else {
       $classes = array_merge($classes, [
         'text-gray-600',
         'hover:bg-gray-200',
@@ -83,7 +86,7 @@ function nothing_preprocess_menu_local_task(&$variables) {
 /**
  * Implements hook_preprocess_HOOK() for page.html.twig.
  */
-function nothing_preprocess_page(&$variables) {
+function nothing_preprocess_page(&$variables): void {
   $cart_count = 0;
   $cache_tags = ['cart'];
 
@@ -119,7 +122,7 @@ function nothing_preprocess_page(&$variables) {
 /**
  * Implements hook_theme_suggestions_HOOK_alter() for blocks.
  */
-function nothing_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+function nothing_theme_suggestions_block_alter(array &$suggestions, array $variables): void {
   // Add template suggestion based on block ID.
   if (isset($variables['elements']['#id'])) {
     $suggestions[] = 'block__' . $variables['elements']['#id'];
@@ -127,78 +130,85 @@ function nothing_theme_suggestions_block_alter(array &$suggestions, array $varia
 }
 
 /**
- * Implements hook_preprocess_HOOK() for input.
+ * Implements hook_theme_suggestions_HOOK_alter() for input.
  */
-function nothing_preprocess_input(&$variables) {
+function nothing_theme_suggestions_input_alter(array &$suggestions, array $variables): void {
+  $element = $variables['element'];
+
+  if (isset($element['#type'])) {
+    $suggestions[] = 'input__' . $element['#type'];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for form.
+ */
+function nothing_theme_suggestions_form_alter(array &$suggestions, array $variables): void {
+  $element = $variables['element'];
+
+  if (isset($element['#form_id'])) {
+    $form_id = $element['#form_id'];
+
+    if (str_starts_with($form_id, 'views_form_commerce_cart_form')) {
+      $suggestions[] = 'form__views_form_commerce_cart_form';
+    }
+
+    $suggestions[] = 'form__' . str_replace('-', '_', $form_id);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for commerce_checkout_form.
+ */
+function nothing_theme_suggestions_commerce_checkout_form_alter(array &$suggestions, array $variables): void {
+  // Add suggestion based on layout
+  if (isset($variables['form']['#layout'])) {
+    $suggestions[] = 'commerce_checkout_form__' . $variables['form']['#layout'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for form--views-form-commerce-cart-form.
+ */
+function nothing_preprocess_form__views_form_commerce_cart_form(&$variables): void {
   $element = &$variables['element'];
-  $variables['errors'] = !empty($element['#errors']);
 
-  // Add specific classes for different input types.
-  $type = $element['#type'] ?? 'text';
+  if (isset($element['output'])) {
+    $variables['cart_output'] = $element['output'];
 
-  if (in_array($type, ['checkbox', 'radio'])) {
-    $variables['attributes']['class'][] = 'w-4';
-    $variables['attributes']['class'][] = 'h-4';
-    $variables['attributes']['class'][] = 'text-blue-600';
-    $variables['attributes']['class'][] = 'bg-white';
-    $variables['attributes']['class'][] = 'border-gray-300';
-    $variables['attributes']['class'][] = 'rounded';
-    $variables['attributes']['class'][] = 'focus:ring-2';
-    $variables['attributes']['class'][] = 'focus:ring-blue-500';
-    if ($type === 'radio') {
-      $variables['attributes']['class'][] = 'rounded-full';
+    if (isset($variables['cart_output']['#footer'])) {
+      unset($variables['cart_output']['#footer']);
     }
   }
-  elseif ($type === 'submit') {
-    $variables['attributes']['class'][] = 'w-full';
-    $variables['attributes']['class'][] = 'px-6';
-    $variables['attributes']['class'][] = 'py-3';
-    $variables['attributes']['class'][] = 'bg-blue-600';
-    $variables['attributes']['class'][] = 'text-white';
-    $variables['attributes']['class'][] = 'font-semibold';
-    $variables['attributes']['class'][] = 'rounded-lg';
-    $variables['attributes']['class'][] = 'hover:bg-blue-700';
-    $variables['attributes']['class'][] = 'focus:outline-none';
-    $variables['attributes']['class'][] = 'focus:ring-2';
-    $variables['attributes']['class'][] = 'focus:ring-blue-500';
-    $variables['attributes']['class'][] = 'focus:ring-offset-2';
-    $variables['attributes']['class'][] = 'transition-colors';
-    $variables['attributes']['class'][] = 'duration-200';
-    $variables['attributes']['class'][] = 'disabled:bg-gray-400';
-    $variables['attributes']['class'][] = 'disabled:cursor-not-allowed';
+
+  if (isset($element['footer'])) {
+    $variables['order_summary'] = $element['footer'];
   }
-  elseif ($type === 'button') {
-    $variables['attributes']['class'][] = 'px-6';
-    $variables['attributes']['class'][] = 'py-3';
-    $variables['attributes']['class'][] = 'bg-gray-200';
-    $variables['attributes']['class'][] = 'text-gray-900';
-    $variables['attributes']['class'][] = 'font-semibold';
-    $variables['attributes']['class'][] = 'rounded-lg';
-    $variables['attributes']['class'][] = 'hover:bg-gray-300';
-    $variables['attributes']['class'][] = 'focus:outline-none';
-    $variables['attributes']['class'][] = 'focus:ring-2';
-    $variables['attributes']['class'][] = 'focus:ring-gray-500';
-    $variables['attributes']['class'][] = 'transition-colors';
-    $variables['attributes']['class'][] = 'duration-200';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for commerce_checkout_form.
+ */
+function nothing_preprocess_commerce_checkout_form(&$variables): void {
+  $form = &$variables['form'];
+
+  if (isset($form['sidebar']['order_summary'])) {
+    $variables['has_order_summary'] = TRUE;
   }
-  elseif ($type === 'file') {
-    $variables['attributes']['class'][] = 'block';
-    $variables['attributes']['class'][] = 'w-full';
-    $variables['attributes']['class'][] = 'text-sm';
-    $variables['attributes']['class'][] = 'text-gray-900';
-    $variables['attributes']['class'][] = 'border';
-    $variables['attributes']['class'][] = 'border-gray-300';
-    $variables['attributes']['class'][] = 'rounded-lg';
-    $variables['attributes']['class'][] = 'cursor-pointer';
-    $variables['attributes']['class'][] = 'bg-white';
-    $variables['attributes']['class'][] = 'focus:outline-none';
-  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for input.
+ */
+function nothing_preprocess_input(&$variables): void {
+  $element = &$variables['element'];
+  $variables['errors'] = !empty($element['#errors']);
 }
 
 /**
  * Implements hook_preprocess_HOOK() for textarea.
  */
-function nothing_preprocess_textarea(&$variables) {
+function nothing_preprocess_textarea(&$variables): void {
   $element = &$variables['element'];
   $variables['errors'] = !empty($element['#errors']);
 }
@@ -206,7 +216,7 @@ function nothing_preprocess_textarea(&$variables) {
 /**
  * Implements hook_preprocess_HOOK() for select.
  */
-function nothing_preprocess_select(&$variables) {
+function nothing_preprocess_select(&$variables): void {
   $element = &$variables['element'];
   $variables['errors'] = !empty($element['#errors']);
 }
@@ -214,7 +224,7 @@ function nothing_preprocess_select(&$variables) {
 /**
  * Implements hook_preprocess_HOOK() for form_element.
  */
-function nothing_preprocess_form_element(&$variables) {
+function nothing_preprocess_form_element(&$variables): void {
   $element = &$variables['element'];
   $variables['errors'] = !empty($element['#errors']) ? $element['#errors'] : NULL;
   $variables['type'] = $element['#type'] ?? NULL;
@@ -223,17 +233,37 @@ function nothing_preprocess_form_element(&$variables) {
 /**
  * Implements hook_preprocess_HOOK() for form_element_label.
  */
-function nothing_preprocess_form_element_label(&$variables) {
+function nothing_preprocess_form_element_label(&$variables): void {
+  $variables['required'] = !empty($variables['element']['#required']);
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for fieldset.
+ */
+function nothing_preprocess_fieldset(&$variables): void {
   $element = &$variables['element'];
-  $variables['required'] = !empty($element['#required']);
+
+  // Add legend content
+  if (!empty($element['#title'])) {
+    $variables['legend'] = $element['#title'];
+  }
+
+  // Add description
+  if (!empty($element['#description'])) {
+    $variables['description'] = $element['#description'];
+  }
+
+  // Add errors
+  if (!empty($element['#errors'])) {
+    $variables['errors'] = $element['#errors'];
+  }
 }
 
 /**
  * Implements hook_form_alter().
  */
-function nothing_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  // Add Tailwind classes to common form IDs.
-  $form_ids = [
+function nothing_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
+  $common_forms = [
     'user_login_form',
     'user_register_form',
     'user_pass',
@@ -242,8 +272,26 @@ function nothing_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_s
     'search_block_form',
   ];
 
-  if (in_array($form_id, $form_ids)) {
-    $form['#attributes']['class'][] = 'space-y-6';
-    $form['#attributes']['class'][] = 'max-w-md';
+  if (in_array($form_id, $common_forms)) {
+    _nothing_add_classes($form['#attributes'], 'space-y-6 max-w-md');
+  }
+
+  if (str_starts_with($form_id, 'views_form_commerce_cart_form') && isset($form['actions'])) {
+    _nothing_add_classes($form['actions']['#attributes'], 'flex items-center gap-4 mt-8');
+  }
+
+  if (str_starts_with($form_id, 'commerce_checkout_flow') && isset($form['actions'])) {
+    _nothing_add_classes($form['actions']['#attributes'], 'flex items-center gap-4 mt-8');
+  }
+}
+
+/**
+ * Helper function to add classes from string.
+ */
+function _nothing_add_classes(&$attributes, string $classes): void {
+  foreach (explode(' ', trim($classes)) as $class) {
+    if ($class) {
+      $attributes['class'][] = $class;
+    }
   }
 }

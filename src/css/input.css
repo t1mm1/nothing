@@ -1,3 +1,7 @@
+@import './components.css';
+@import './form.css';
+@import './checkout.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

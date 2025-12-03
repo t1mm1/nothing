@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Theme override for product variation in cart view mode.
+ */
+#}
+<div class="product-variation-cart">
+  <div class="font-medium text-gray-900">
+    {{ product_entity.title.value }}
+  </div>
+  {% if product_variation_entity.title.value != product_entity.title.value %}
+    <div class="text-sm text-gray-600">
+      {{ product_variation_entity.title.value }}
+    </div>
+  {% endif %}
+</div>

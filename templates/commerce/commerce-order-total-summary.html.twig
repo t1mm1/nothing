@@ -1,0 +1,64 @@
+{#
+/**
+ * @file
+ * Theme override for order total summary.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - order_entity: The order entity.
+ * - totals: An array of order totals values with the following keys:
+ *   - subtotal: The order subtotal price.
+ *   - adjustments: The adjustments:
+ *     - type: The adjustment type.
+ *     - label: The adjustment label.
+ *     - amount: The adjustment amount.
+ *     - percentage: The decimal adjustment percentage, when available.
+ *   - total: The order total price.
+ */
+#}
+{{ attach_library('commerce_order/total_summary') }}
+
+<div{{ attributes.addClass('order-total-summary') }}>
+
+  {# Subtotal and adjustments #}
+  <div class="space-y-1.5">
+
+    {# Subtotal #}
+    {% if totals.subtotal %}
+      <div class="order-total-line order-total-line__subtotal flex justify-between items-center text-sm">
+        <span class="order-total-line-label font-semibold text-gray-700 uppercase">
+          {{ 'Subtotal'|t }}
+        </span>
+        <span class="order-total-line-value text-gray-900 font-medium">
+          {{ totals.subtotal|commerce_price_format }}
+        </span>
+      </div>
+    {% endif %}
+
+    {# Adjustments (shipping, taxes, discounts, etc.) #}
+    {% for adjustment in totals.adjustments %}
+      <div class="order-total-line order-total-line__adjustment order-total-line__adjustment--{{ adjustment.type|clean_class }} flex justify-between items-center text-sm">
+        <span class="order-total-line-label font-semibold text-gray-700 uppercase">
+          {{ adjustment.label }}
+        </span>
+        <span class="order-total-line-value text-gray-900 font-medium">
+          {{ adjustment.amount|commerce_price_format }}
+        </span>
+      </div>
+    {% endfor %}
+
+  </div>
+
+  {# Divider and Total #}
+  {% if totals.total %}
+    <div class="order-total-line order-total-line__total flex justify-between items-center">
+      <span class="order-total-line-label font-bold text-gray-900 uppercase text-lg">
+        {{ 'Total'|t }}
+      </span>
+      <span class="order-total-line-value text-gray-900 font-bold text-lg">
+        {{ totals.total|commerce_price_format }}
+      </span>
+    </div>
+  {% endif %}
+
+</div>

@@ -1,0 +1,54 @@
+{#
+/**
+ * @file
+ * Theme override for the checkout form with sidebar layout.
+ */
+#}
+
+{{ attach_library('commerce_checkout/form') }}
+
+{{ form.form_build_id }}
+{{ form.form_token }}
+{{ form.form_id }}
+
+<div class="layout-checkout-form clearfix">
+
+  {# Main checkout content (left side) #}
+  <div class="layout-region layout-region-checkout-main">
+
+    {# Output all main checkout panes #}
+    {% for key, element in form %}
+      {% if key|first != '#' and key not in ['order_summary', 'sidebar', 'actions', 'form_build_id', 'form_token', 'form_id'] %}
+        {{ element }}
+      {% endif %}
+    {% endfor %}
+
+  </div>
+
+  {# Sidebar with Order Summary (right side) #}
+  <div class="layout-region layout-region-checkout-secondary">
+
+    <fieldset class="border-2 border-gray-200 rounded-lg p-6 bg-gray-50 mb-6">
+      <legend class="text-xl font-bold text-gray-900 px-3 bg-white border border-gray-200 rounded-md -ml-1">
+        {{ 'Order summary'|t }}
+      </legend>
+
+      <div>
+        {% if form.order_summary is defined %}
+          {{ form.order_summary }}
+        {% elseif form.sidebar is defined %}
+          {{ form.sidebar }}
+        {% endif %}
+      </div>
+    </fieldset>
+
+  </div>
+
+  {# Footer with action buttons #}
+  <div class="layout-region layout-region-checkout-footer">
+    {% if form.actions is defined %}
+      {{ form.actions }}
+    {% endif %}
+  </div>
+
+</div>
