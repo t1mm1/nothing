@@ -278,10 +278,24 @@ function nothing_form_alter(&$form, FormStateInterface $form_state, $form_id): v
 
   if (str_starts_with($form_id, 'views_form_commerce_cart_form') && isset($form['actions'])) {
     _nothing_add_classes($form['actions']['#attributes'], 'flex items-center gap-4 mt-8');
+
+    // Fix message for cart update submit.
+    $form['#submit'][] = 'nothing_commerce_cart_update_submit';
   }
 
   if (str_starts_with($form_id, 'commerce_checkout_flow') && isset($form['actions'])) {
     _nothing_add_classes($form['actions']['#attributes'], 'flex items-center gap-4 mt-8');
+  }
+}
+
+/**
+ * Custom submit handler for cart form.
+ */
+function nothing_commerce_cart_update_submit($form, FormStateInterface $form_state): void {
+  $triggering_element = $form_state->getTriggeringElement();
+
+  if (!isset($triggering_element['#redirect_to_checkout'])) {
+    \Drupal::messenger()->addStatus(t('Your shopping cart has been updated.'));
   }
 }
 
@@ -295,3 +309,4 @@ function _nothing_add_classes(&$attributes, string $classes): void {
     }
   }
 }
+
