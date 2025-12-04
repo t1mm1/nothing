@@ -21,27 +21,27 @@
   }
 
   /* Quantity input in cart */
-  .quantity-edit-input {
+  td[headers*="edit-quantity-table-column"] input[name^="edit_quantity"] {
     @apply w-20 px-3 py-2 border border-gray-300 rounded-lg text-center;
     @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
   }
 
   /* Remove button styling */
-  .delete-order-item {
-    @apply bg-red-600 hover:bg-red-700 focus:ring-red-500;
+  td[headers*="remove-button-table-column"] input[name^="delete-order-item"] {
+    @apply py-2 bg-red-600 hover:bg-red-700 focus:ring-red-500;
   }
 
   /* Order total lines */
   .order-total-line {
-    @apply flex justify-between items-center py-2;
+    @apply py-2 pl-0 text-left;
   }
 
   .order-total-line__total {
-    @apply pt-3 border-t-2 border-gray-300 mt-2;
+    @apply border-t border-gray-300;
   }
 
   .order-total-line__total .order-total-line-label {
-    @apply text-lg font-bold text-gray-900;
+    @apply text-lg pl-0 font-bold text-gray-900;
   }
 
   .order-total-line__total .order-total-line-value {
@@ -49,27 +49,10 @@
   }
 
   .order-total-line-label {
-    @apply text-sm text-gray-700;
+    @apply text-sm pl-0 text-gray-700;
   }
 
   .order-total-line-value {
     @apply text-sm font-semibold text-gray-900;
-  }
-
-  /* Cart page layout fix */
-  .cart-page .views-form {
-    @apply grid grid-cols-1 lg:grid-cols-3 gap-8;
-  }
-
-  .cart-page .views-form > table {
-    @apply lg:col-span-2;
-  }
-
-  .cart-page .views-form > div[data-drupal-selector="order-total-summary"] {
-    @apply lg:col-span-1;
-  }
-
-  .cart-page .form-actions {
-    @apply lg:col-span-3;
   }
 }

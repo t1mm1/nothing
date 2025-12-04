@@ -21,11 +21,11 @@
 <div{{ attributes.addClass('order-total-summary') }}>
 
   {# Subtotal and adjustments #}
-  <div class="space-y-1.5">
+  <div class="space-y-0">
 
     {# Subtotal #}
     {% if totals.subtotal %}
-      <div class="order-total-line order-total-line__subtotal flex justify-between items-center text-sm">
+      <div class="order-total-line order-total-line__subtotal text-sm">
         <span class="order-total-line-label font-semibold text-gray-700 uppercase">
           {{ 'Subtotal'|t }}
         </span>
@@ -37,7 +37,7 @@
 
     {# Adjustments (shipping, taxes, discounts, etc.) #}
     {% for adjustment in totals.adjustments %}
-      <div class="order-total-line order-total-line__adjustment order-total-line__adjustment--{{ adjustment.type|clean_class }} flex justify-between items-center text-sm">
+      <div class="order-total-line order-total-line__adjustment order-total-line__adjustment--{{ adjustment.type|clean_class }} text-sm">
         <span class="order-total-line-label font-semibold text-gray-700 uppercase">
           {{ adjustment.label }}
         </span>
@@ -51,7 +51,7 @@
 
   {# Divider and Total #}
   {% if totals.total %}
-    <div class="order-total-line order-total-line__total flex justify-between items-center">
+    <div class="order-total-line order-total-line__total">
       <span class="order-total-line-label font-bold text-gray-900 uppercase text-lg">
         {{ 'Total'|t }}
       </span>

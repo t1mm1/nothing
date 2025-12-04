@@ -18,7 +18,7 @@
           {{ 'Shopping cart'|t }}
         </legend>
 
-        <div class="mt-4">
+        <div>
           {% if cart_output is defined %}
             {{ cart_output }}
           {% endif %}
@@ -34,7 +34,7 @@
             {{ 'Order Summary'|t }}
           </legend>
 
-          <div class="mt-4">
+          <div>
             {% if order_summary is defined %}
               {{ order_summary }}
             {% endif %}

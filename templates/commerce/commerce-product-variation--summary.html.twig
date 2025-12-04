@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Theme override for product variation in summary/order summary view mode.
+ *
+ * Available variables:
+ * - product_variation_entity: The product variation entity.
+ * - product_entity: The parent product entity.
+ * - product_url: The product URL.
+ */
+#}
+<div class="product-variation-summary text-sm">
+  {% if product_entity %}
+    <div class="font-medium text-gray-900">
+      {{ product_entity.title.value }}
+    </div>
+    {% if product_variation_entity.title.value != product_entity.title.value %}
+      <div class="text-xs text-gray-600">
+        {{ product_variation_entity.title.value }}
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="font-medium text-gray-900">
+      {{ product_variation_entity.title.value }}
+    </div>
+  {% endif %}
+</div>

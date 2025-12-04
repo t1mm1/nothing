@@ -3,7 +3,8 @@
  */
 
 @layer components {
-  fieldset p {
+  fieldset p,
+  .checkout-complete p {
     @apply border-l-4 border-blue-600 mb-4 pl-4;
   }
 
