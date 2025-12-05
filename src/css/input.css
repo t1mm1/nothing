@@ -2,6 +2,7 @@
 @import './form.css';
 @import './checkout.css';
 @import './password.css';
+@import './elements.css';
 
 @tailwind base;
 @tailwind components;

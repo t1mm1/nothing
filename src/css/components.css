@@ -28,7 +28,7 @@
 
   /* Remove button styling */
   td[headers*="remove-button-table-column"] input[name^="delete-order-item"] {
-    @apply py-2 bg-red-600 hover:bg-red-700 focus:ring-red-500;
+    @apply py-1 px-3 text-sm bg-red-600 hover:bg-red-700 focus:ring-red-500;
   }
 
   /* Order total lines */

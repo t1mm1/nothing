@@ -17,3 +17,7 @@
     @apply hidden;
   }
 }
+
+.commerce-cart-form .form-item-type-number {
+  @apply mb-0;
+}
