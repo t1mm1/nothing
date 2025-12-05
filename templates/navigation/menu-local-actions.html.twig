@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Theme override for local actions.
+ */
+#}
+{% if items %}
+  <nav{{ attributes.addClass('mb-6') }}>
+    <ul class="flex flex-wrap gap-3 list-none m-0 p-0">
+      {% for item in items %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}

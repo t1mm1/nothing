@@ -15,4 +15,4 @@ regions:
   footer: 'Footer'
 
 libraries:
-  - nothing/global-styling
+  - nothing/global

@@ -88,7 +88,6 @@ function nothing_preprocess_menu_local_task(&$variables): void {
  */
 function nothing_preprocess_page(&$variables): void {
   $cart_count = 0;
-  $cache_tags = ['cart'];
 
   if (\Drupal::moduleHandler()->moduleExists('commerce_cart')) {
     $cart_provider = \Drupal::service('commerce_cart.cart_provider');
@@ -103,13 +102,14 @@ function nothing_preprocess_page(&$variables): void {
     }
 
     $variables['cart_count'] = $cart_count;
-  }
 
-  // Add cache tags for cart.
-  $variables['#cache']['tags'] = array_merge(
-    $variables['#cache']['tags'] ?? [],
-    $cache_tags
-  );
+    // Add cache tags for cart.
+    $cache_tags[] = 'cart';
+    $variables['#cache']['tags'] = array_merge(
+      $variables['#cache']['tags'] ?? [],
+      $cache_tags
+    );
+  }
 
   // Add cache contexts.
   $variables['#cache']['contexts'][] = 'user';
@@ -161,7 +161,6 @@ function nothing_theme_suggestions_form_alter(array &$suggestions, array $variab
  * Implements hook_theme_suggestions_HOOK_alter() for commerce_checkout_form.
  */
 function nothing_theme_suggestions_commerce_checkout_form_alter(array &$suggestions, array $variables): void {
-  // Add suggestion based on layout
   if (isset($variables['form']['#layout'])) {
     $suggestions[] = 'commerce_checkout_form__' . $variables['form']['#layout'];
   }
