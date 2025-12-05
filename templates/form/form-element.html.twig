@@ -4,32 +4,55 @@
  * Theme override for a form element wrapper.
  */
 #}
-{% set classes = [
-  type == 'checkbox' or type == 'radio' ? 'flex gap-2 items-start mb-0' : '',
-] %}
+{%
+  set classes = [
+  'form-item',
+  'mb-5',
+  'max-w-3xl',
+  disabled == 'disabled' ? 'opacity-50' : '',
+  errors ? 'form-item--error' : '',
+]
+%}
 
 <div{{ attributes.addClass(classes) }}>
+  {# Label before #}
   {% if label_display == 'before' %}
     {{ label }}
   {% endif %}
 
+  {# Prefix #}
   {% if prefix %}
-    <span class="text-sm text-gray-600 mb-2 block">{{ prefix }}</span>
+    <span class="form-element-prefix text-sm text-gray-600 mb-2 block">
+      {{ prefix }}
+    </span>
   {% endif %}
 
+  {# Main input/field #}
   {{ children }}
 
+  {# Suffix #}
   {% if suffix %}
-    <span class="text-sm text-gray-600 mt-2 block">{{ suffix }}</span>
+    <span class="form-element-suffix text-sm text-gray-600 mt-2 block">
+      {{ suffix }}
+    </span>
   {% endif %}
 
+  {# Label after #}
   {% if label_display == 'after' %}
     {{ label }}
   {% endif %}
 
-  {% if description %}
-    <div class="mt-2 text-sm text-gray-600">
-      {{ description }}
+  {# Errors #}
+  {% if errors %}
+    <div class="form-item__errors mt-2 p-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg">
+      {{ errors }}
+    </div>
+  {% endif %}
+
+  {# Description #}
+  {% if description.content %}
+    <div{{ description.attributes.addClass('mt-2 text-sm text-gray-600 leading-relaxed') }}>
+      {{ description.content }}
     </div>
   {% endif %}
 </div>

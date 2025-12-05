@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Theme override for a checkbox form element wrapper.
+ */
+#}
+<div class="mb-0">
+  {# Checkbox и label в одну строку #}
+  <div class="flex gap-3 items-center">
+    {# Checkbox #}
+    {{ children }}
+
+    {# Label #}
+    {% if label_display == 'after' %}
+      {{ label }}
+    {% endif %}
+  </div>
+
+  {# Description под чекбоксом #}
+  {% if description.content %}
+    <div class="mt-2 ml-7 text-sm text-gray-600 leading-relaxed">
+      {{ description.content }}
+    </div>
+  {% endif %}
+
+  {# Errors #}
+  {% if errors %}
+    <div class="mt-2 p-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg">
+      {{ errors }}
+    </div>
+  {% endif %}
+</div>

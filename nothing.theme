@@ -125,7 +125,7 @@ function nothing_preprocess_page(&$variables): void {
 function nothing_theme_suggestions_block_alter(array &$suggestions, array $variables): void {
   // Add template suggestion based on block ID.
   if (isset($variables['elements']['#id'])) {
-    $suggestions[] = 'block__' . $variables['elements']['#id'];
+    $suggestions[] = 'block__' . str_replace('-', '_', $variables['elements']['#id']);
   }
 }
 
@@ -136,7 +136,7 @@ function nothing_theme_suggestions_input_alter(array &$suggestions, array $varia
   $element = $variables['element'];
 
   if (isset($element['#type'])) {
-    $suggestions[] = 'input__' . $element['#type'];
+    $suggestions[] = 'input__' . str_replace('-', '_', $element['#type']);
   }
 }
 
@@ -158,11 +158,20 @@ function nothing_theme_suggestions_form_alter(array &$suggestions, array $variab
 }
 
 /**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function nothing_theme_suggestions_form_element_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['element']['#type'])) {
+    $suggestions[] = 'form_element__' . str_replace('-', '_', $variables['element']['#type']);
+  }
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter() for commerce_checkout_form.
  */
 function nothing_theme_suggestions_commerce_checkout_form_alter(array &$suggestions, array $variables): void {
   if (isset($variables['form']['#layout'])) {
-    $suggestions[] = 'commerce_checkout_form__' . $variables['form']['#layout'];
+    $suggestions[] = 'commerce_checkout_form__' . str_replace('-', '_', $variables['form']['#layout']);
   }
 }
 
@@ -276,7 +285,7 @@ function nothing_form_alter(&$form, FormStateInterface $form_state, $form_id): v
   }
 
   if (isset($form['actions'])) {
-    _nothing_add_classes($form['actions']['#attributes'], 'flex items-center gap-4 mt-8');
+    _nothing_add_classes($form['actions']['#attributes'], 'flex items-center gap-4');
   }
 
   // Fix message for cart update submit.

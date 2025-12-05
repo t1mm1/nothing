@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Theme override for a radio form element wrapper.
+ */
+#}
+{%
+  set classes = [
+  'form-item',
+  'form-item--radio',
+  disabled == 'disabled' ? 'opacity-50' : '',
+  errors ? 'form-item--error' : '',
+]
+%}
+
+<div{{ attributes.addClass(classes) }}>
+  {# Label before (не используется для radio) #}
+  {% if label_display == 'before' %}
+    {{ label }}
+  {% endif %}
+
+  {# Prefix #}
+  {% if prefix %}
+    <span class="form-element__prefix text-sm text-gray-600 mb-2 block">
+      {{ prefix }}
+    </span>
+  {% endif %}
+
+  {# Radio и label в одну строку #}
+  <div class="flex gap-3 items-start">
+    {# Radio input #}
+    {{ children }}
+
+    {# Label after (для radio всегда справа) #}
+    {% if label_display == 'after' %}
+      {{ label }}
+    {% endif %}
+  </div>
+
+  {# Description - под радио #}
+  {% if description.content %}
+    <div{{ description.attributes.addClass('mt-2 ml-7 text-sm text-gray-600 leading-relaxed') }}>
+      {{ description.content }}
+    </div>
+  {% endif %}
+
+  {# Suffix #}
+  {% if suffix %}
+    <span class="form-element__suffix text-sm text-gray-600 mt-2 block">
+      {{ suffix }}
+    </span>
+  {% endif %}
+
+  {# Errors #}
+  {% if errors %}
+    <div class="form-item__errors mt-2 p-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg">
+      {{ errors }}
+    </div>
+  {% endif %}
+</div>

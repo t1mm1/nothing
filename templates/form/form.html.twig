@@ -1,9 +1,15 @@
 {#
 /**
  * @file
- * Theme override for a form.
+ * Theme override for a form element.
  */
 #}
-<form{{ attributes }}>
+{%
+  set classes = [
+  'space-y-6',
+]
+%}
+
+<form{{ attributes.addClass(classes) }}>
   {{ children }}
 </form>

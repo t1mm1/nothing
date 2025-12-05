@@ -1,6 +1,7 @@
 @import './components.css';
 @import './form.css';
 @import './checkout.css';
+@import './password.css';
 
 @tailwind base;
 @tailwind components;

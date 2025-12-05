@@ -1,0 +1,67 @@
+{#
+/**
+ * @file
+ * Theme override for a details element.
+ */
+#}
+{%
+  set classes = [
+  'details',
+  'mb-6',
+  'border',
+  'border-gray-200',
+  'rounded-lg',
+  'bg-white',
+  'shadow-sm',
+  'overflow-hidden',
+]
+%}
+
+{%
+  set summary_classes = [
+  'px-6',
+  'py-4',
+  'cursor-pointer',
+  'font-semibold',
+  'text-lg',
+  'text-gray-900',
+  'hover:bg-gray-50',
+  'transition-colors',
+  'flex',
+  'items-center',
+  'gap-3',
+  'bg-gray-50',
+  'border-b',
+  'border-gray-200',
+  required ? 'js-form-required',
+  required ? 'form-required',
+]
+%}
+
+<details{{ attributes.addClass(classes) }}>
+  {% if title %}
+    <summary{{ summary_attributes.addClass(summary_classes) }}>
+      <svg class="w-5 h-5 text-gray-500 transition-transform duration-200 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <span>{{ title }}</span>
+    </summary>
+  {% endif %}
+
+  {% if errors %}
+    <div class="px-6 py-3 text-sm text-red-700 bg-red-50 border-b border-red-200">
+      {{ errors }}
+    </div>
+  {% endif %}
+
+  {% if description %}
+    <div class="px-6 py-3 text-sm text-gray-600 bg-blue-50 border-b border-gray-100">
+      {{ description }}
+    </div>
+  {% endif %}
+
+  <div class="px-6 py-5 space-y-4">
+    {{ children }}
+    {{ value }}
+  </div>
+</details>

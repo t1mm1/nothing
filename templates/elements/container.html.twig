@@ -4,7 +4,13 @@
  * Theme override for a container element.
  */
 #}
+{%
+  set classes = [
+  'container',
+  attributes.hasClass('form-actions') ? 'flex items-center gap-4' : '',
+]
+%}
 
-<div{{ attributes }}>
+<div{{ attributes.addClass(classes) }}>
   {{ children }}
 </div>
