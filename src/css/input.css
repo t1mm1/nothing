@@ -1,8 +1,10 @@
+@import './common.css';
 @import './components.css';
 @import './form.css';
 @import './checkout.css';
 @import './password.css';
 @import './elements.css';
+@import './paragraphs.css';
 
 @tailwind base;
 @tailwind components;

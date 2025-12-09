@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Theme implementation for Icons Item paragraph.
+ */
+#}
+
+{% set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  'group flex gap-y-6 size-full hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-lg p-5 transition duration-400',
+] %}
+
+<a {{ attributes.addClass(classes) }}
+   title="{{ paragraph.field_link.title ?: 'Read more' }}"
+   href="{{ paragraph.field_link.uri }}"
+>
+  <div class="shrink-0 size-8 text-gray-800 mt-0.5 me-6">
+    {{ content.field_image }}
+  </div>
+
+  <div>
+    <div>
+      <h3 class="block font-bold text-gray-800">{{ content.field_title }}</h3>
+      {{ content.field_body }}
+    </div>
+
+    <p class="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold text-gray-800">
+      {{ paragraph.field_link.title ?: 'Read more' }}
+      <svg class="shrink-0 size-4 transition ease-in-out group-hover:translate-x-1 group-focus:translate-x-1"
+           xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    </p>
+  </div>
+</a>

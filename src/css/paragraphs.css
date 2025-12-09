@@ -1,0 +1,35 @@
+/**
+ * Paragraph head title.
+ */
+
+.paragraph p {
+  @apply text-gray-500;
+}
+
+.paragraph-head-title p {
+  @apply mt-3 text-lg;
+}
+
+.paragraph-head-title h1,
+.paragraph-head-title h2 {
+  @apply block text-3xl font-bold sm:text-4xl md:text-5xl;
+}
+
+.paragraph-head-title h1 {
+  @apply text-blue-600;
+}
+
+.paragraph-head-title h2 {
+  @apply text-gray-800;
+}
+
+/**
+ * Paragraph hero banner.
+ */
+.paragraph-hero-banner .paragraph-hero-image {
+  @apply h-96 md:h-[56dvh] flex flex-col bg-cover bg-center bg-no-repeat rounded-xl;
+}
+.paragraph-hero-banner h2 {
+  @apply text-xl md:text-3xl lg:text-5xl text-gray-800;
+}
+

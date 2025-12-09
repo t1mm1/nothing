@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Theme implementation for Simple text paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ * - content: All paragraph items.
+ * - attributes: HTML attributes for the containing element.
+ */
+#}
+
+{% set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  'paragraph-head-title relative overflow-hidden',
+] %}
+
+<div {{ attributes.addClass(classes) }}>
+  <div class="max-w-[85rem] mx-auto py-8">
+    <div class="max-w-5xl mx-auto">
+      {{ content.field_body }}
+    </div>
+  </div>
+</div>

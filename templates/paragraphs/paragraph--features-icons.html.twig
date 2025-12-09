@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Theme implementation for Features Icons paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ * - content: All paragraph items.
+ * - attributes: HTML attributes for the containing element.
+ */
+#}
+
+{% set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  'max-w-[85rem] py-10 lg:py-14 mx-auto',
+] %}
+
+<div{{ attributes.addClass(classes) }}>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 items-center gap-6">
+    {{ content.field_features_icons_items }}
+  </div>
+</div>
