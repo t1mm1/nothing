@@ -6,7 +6,8 @@
 #}
 <div class="min-h-screen flex flex-col">
 
-  {% include '@nothing/navigation/header-navigation.html.twig' %}
+  {# header #}
+  {% include '@nothing/layout/header.html.twig' %}
   {% if page.header %}
     {{ page.header }}
   {% endif %}
@@ -227,7 +228,7 @@
 
                   <!-- Tab Navs -->
                   <nav class="grid gap-6 mt-5 md:mt-10" aria-label="Tabs" role="tablist" aria-orientation="vertical">
-                    <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 p-4 md:p-5 rounded-xl transition duration-400" id="tabs-with-card-item-1" aria-selected="true" data-hs-tab="#tabs-with-card-1" aria-controls="tabs-with-card-1" role="tab">
+                    <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 p-4 md:p-5 rounded-xl transition duration-500" id="tabs-with-card-item-1" aria-selected="true" data-hs-tab="#tabs-with-card-1" aria-controls="tabs-with-card-1" role="tab">
                       <span class="flex gap-x-6">
                         <svg class="shrink-0 mt-2 size-6 md:size-7 hs-tab-active:text-blue-600 text-gray-800" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/></svg>
                         <span class="grow">
@@ -237,7 +238,7 @@
                       </span>
                     </button>
 
-                    <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 p-4 md:p-5 rounded-xl transition duration-400" id="tabs-with-card-item-2" aria-selected="false" data-hs-tab="#tabs-with-card-2" aria-controls="tabs-with-card-2" role="tab">
+                    <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 p-4 md:p-5 rounded-xl transition duration-500" id="tabs-with-card-item-2" aria-selected="false" data-hs-tab="#tabs-with-card-2" aria-controls="tabs-with-card-2" role="tab">
                       <span class="flex gap-x-6">
                         <svg class="shrink-0 mt-2 size-6 md:size-7 hs-tab-active:text-blue-600 text-gray-800" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
                         <span class="grow">
@@ -247,7 +248,7 @@
                       </span>
                     </button>
 
-                    <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 p-4 md:p-5 rounded-xl transition duration-400" id="tabs-with-card-item-3" aria-selected="false" data-hs-tab="#tabs-with-card-3" aria-controls="tabs-with-card-3" role="tab">
+                    <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 p-4 md:p-5 rounded-xl transition duration-500" id="tabs-with-card-item-3" aria-selected="false" data-hs-tab="#tabs-with-card-3" aria-controls="tabs-with-card-3" role="tab">
                       <span class="flex gap-x-6">
                         <svg class="shrink-0 mt-2 size-6 md:size-7 hs-tab-active:text-blue-600 text-gray-800" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
                         <span class="grow">
@@ -508,7 +509,7 @@
           <div class="max-w-[85rem] py-10 lg:py-14 mx-auto">
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 items-center gap-6">
               <!-- Card -->
-              <a class="group flex gap-y-6 size-full hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-lg p-5 transition duration-400" href="#">
+              <a class="group flex gap-y-6 size-full hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-lg p-5 transition duration-500" href="#">
                 <svg class="shrink-0 size-8 text-gray-800 mt-0.5 me-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
 
                 <div>
@@ -526,7 +527,7 @@
               <!-- End Card -->
 
               <!-- Card -->
-              <a class="group flex gap-y-6 size-full hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-lg p-5 transition duration-400" href="#">
+              <a class="group flex gap-y-6 size-full hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-lg p-5 transition duration-500" href="#">
                 <svg class="shrink-0 size-8 text-gray-800 mt-0.5 me-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
 
                 <div>
@@ -544,7 +545,7 @@
               <!-- End Card -->
 
               <!-- Card -->
-              <a class="group flex gap-y-6 size-full hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-lg p-5 transition duration-400" href="#">
+              <a class="group flex gap-y-6 size-full hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 rounded-lg p-5 transition duration-500" href="#">
                 <svg class="shrink-0 size-8 text-gray-800 mt-0.5 me-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7"/></svg>
 
                 <div>
@@ -565,36 +566,11 @@
           <!-- End Icon Blocks -->
 
         </div>
-
       </div>
     </div>
 
   </main>
 
-  {#  {% if page.footer %}#}
-  <footer class="mt-auto w-full py-7 px-4 md:px-6 lg:px-8 mx-auto bg-gray-50">
-    <div class="max-w-[92rem] mx-auto">
-      <div class="items-center">
-        <ul class="text-center">
-          <li class="inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300">
-            <a class="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 transition duration-400" href="#">
-              Home
-            </a>
-          </li>
-          <li class="inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300">
-            <a class="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 transition duration-400" href="#">
-              Pricing
-            </a>
-          </li>
-          <li class="inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300">
-            <a class="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 transition duration-400" href="#">
-              About
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </footer>
-  {#  {% endif %}#}
-
+  {# Footer #}
+  {% include '@nothing/layout/footer.html.twig' %}
 </div>

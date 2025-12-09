@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Theme override for footer.
+ */
+#}
+<footer class="mt-auto w-full py-7 px-4 md:px-6 lg:px-8 mx-auto bg-gray-50">
+  <div class="max-w-[92rem] mx-auto">
+    <div class="items-center">
+      {% if page.primary_menu %}
+        {{ page.primary_menu }}
+      {% endif %}
+    </div>
+  </div>
+</footer>
