@@ -1,0 +1,83 @@
+{#
+/**
+ * @file
+ * Theme implementation for Pricing sections simple item paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ * - content: All paragraph items.
+ * - attributes: HTML attributes for the containing element.
+ */
+#}
+
+{% set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  'shadow-xl shadow-gray-200 p-4 relative z-10 bg-white border border-gray-200 rounded-xl md:p-10',
+] %}
+
+<div {{ attributes.addClass(classes) }}>
+  <h3 class="text-xl font-bold text-gray-800">{{ content.field_title }}</h3>
+  <div class="text-sm text-gray-500">{{ content.field_caption }}</div>
+
+  {% if paragraph.field_item_selected.value %}
+    <span class="absolute top-0 end-0 rounded-se-xl rounded-es-xl text-xs font-medium bg-gray-800 text-white py-1.5 px-3">{{ 'Most popular'|trans }}</span>
+  {% endif %}
+
+  <div class="mt-5">
+    <span class="text-6xl font-bold text-gray-800">${{ content.field_price }}</span>
+    <span class="ms-3 text-gray-500">{{ 'USD / forever'|trans }}</span>
+  </div>
+
+  <div class="mt-5 grid sm:grid-cols-2 gap-y-2 py-4 first:pt-0 last:pb-0 sm:gap-x-6 sm:gap-y-0">
+    {% if paragraph.field_options_enabled %}
+      {% for chunk in paragraph.field_options_enabled|batch(3) %}
+        <ul class="space-y-2 text-sm sm:text-base">
+          {% for item in chunk %}
+            <li class="flex gap-x-3">
+              <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600">
+                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="text-gray-800">{{ item.value|raw }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    {% endif %}
+
+    {% if paragraph.field_options_disabled %}
+      {% for chunk in paragraph.field_options_disabled|batch(3) %}
+        <ul class="space-y-2 text-sm sm:text-base">
+          {% for item in chunk %}
+            <li class="flex gap-x-3">
+              <span class="size-5 flex justify-center items-center rounded-full bg-gray-50 text-gray-500">
+                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </span>
+              <span class="text-gray-800">{{ item.value|raw }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <div class="mt-5 grid grid-cols-2 gap-x-4 py-4 first:pt-0 last:pb-0">
+    <div>
+      <p class="text-sm text-gray-500">{{ 'Cancel anytime.'|trans }}</p>
+      <p class="text-sm text-gray-500">{{ 'No card required.'|trans }}</p>
+    </div>
+
+    <div class="flex justify-end">
+      {% if paragraph.field_item_selected.value %}
+        <div class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+          {{ content.field_link }}
+        </div>
+      {% else %}
+        <div class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 transition duration-500">
+          {{ content.field_link }}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme implementation for Features stats simple paragraph.
+ * Theme implementation for Pricing sections simple paragraph.
  *
  * Available variables:
  * - paragraph: Full paragraph entity.
@@ -19,151 +19,13 @@
 <div {{ attributes.addClass(classes) }}>
   <div class="mx-auto max-w-1xl mb-8 lg:mb-14 text-center">
     <h2 class="text-3xl lg:text-4xl text-gray-800 font-bold">
-      Do you still do not want to get you The NOTHING?
+      {{ content.field_title }}
     </h2>
   </div>
 
   <div class="relative">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-      <div class="shadow-xl shadow-gray-200 p-4 relative z-10 bg-white border border-gray-200 rounded-xl md:p-10">
-          <h3 class="text-xl font-bold text-gray-800">Basic Nothing!</h3>
-          <div class="text-sm text-gray-500">Everyone needs it.</div>
-
-          <div class="mt-5">
-            <span class="text-6xl font-bold text-gray-800">$9</span>
-            <span class="text-lg font-bold text-gray-800">.99</span>
-            <span class="ms-3 text-gray-500">USD / forever</span>
-          </div>
-
-          <div class="mt-5 grid sm:grid-cols-2 gap-y-2 py-4 first:pt-0 last:pb-0 sm:gap-x-6 sm:gap-y-0">
-            <ul class="space-y-2 text-sm sm:text-base">
-              <li class="flex gap-x-3">
-                <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600">
-                  <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                </span>
-                <span class="text-gray-800">Access to unlimited Nothing</span>
-              </li>
-
-              <li class="flex gap-x-3">
-                <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600">
-                  <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                </span>
-                <span class="text-gray-800">No install required</span>
-              </li>
-
-              <li class="flex gap-x-3">
-                <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600">
-                  <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                </span>
-                <span class="text-gray-800">Instantly delivered</span>
-              </li>
-            </ul>
-
-            <ul class="space-y-2 text-sm sm:text-base">
-              <li class="flex gap-x-3">
-                <span class="size-5 flex justify-center items-center rounded-full bg-gray-50 text-gray-500">
-                  <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </span>
-                <span class="text-gray-800">Priority support</span>
-              </li>
-
-              <li class="flex gap-x-3">
-                <span class="size-5 flex justify-center items-center rounded-full bg-gray-50 text-gray-500">
-                  <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </span>
-                <span class="text-gray-800">Nothing in premium packaging</span>
-              </li>
-
-              <li class="flex gap-x-3">
-                <span class="size-5 flex justify-center items-center rounded-full bg-gray-50 text-gray-500">
-                  <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </span>
-                <span class="text-gray-800">VIP Nothing! Experience</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="mt-5 grid grid-cols-2 gap-x-4 py-4 first:pt-0 last:pb-0">
-            <div>
-              <p class="text-sm text-gray-500">Cancel anytime.</p>
-              <p class="text-sm text-gray-500">No card required.</p>
-            </div>
-
-            <div class="flex justify-end">
-              <button type="button" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 transition duration-500">Take it!</button>
-            </div>
-          </div>
-        </div>
-      <div class="shadow-xl shadow-gray-200 p-5 relative z-10 bg-white border border-gray-200 rounded-xl md:p-10">
-        <h3 class="text-xl font-bold text-gray-800">Advanced Nothing!</h3>
-        <div class="text-sm text-gray-500">Everyone wants it.</div>
-        <span class="absolute top-0 end-0 rounded-se-xl rounded-es-xl text-xs font-medium bg-gray-800 text-white py-1.5 px-3">Most popular</span>
-
-        <div class="mt-5">
-          <span class="text-6xl font-bold text-gray-800">$19</span>
-          <span class="text-lg font-bold text-gray-800">.99</span>
-          <span class="ms-3 text-gray-500">USD / forever</span>
-        </div>
-
-        <div class="mt-5 grid sm:grid-cols-2 gap-y-2 py-4 first:pt-0 last:pb-0 sm:gap-x-6 sm:gap-y-0">
-          <ul class="space-y-2 text-sm sm:text-base">
-            <li class="flex gap-x-3">
-              <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600">
-                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <span class="text-gray-800">Access to unlimited Nothing</span>
-            </li>
-
-            <li class="flex gap-x-3">
-              <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600">
-                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <span class="text-gray-800">No install required</span>
-            </li>
-
-            <li class="flex gap-x-3">
-              <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600">
-                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <span class="text-gray-800">Instantly delivered</span>
-            </li>
-          </ul>
-
-          <ul class="space-y-2 text-sm sm:text-base">
-            <li class="flex gap-x-3">
-              <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600">
-                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <span class="text-gray-800">Priority support</span>
-            </li>
-
-            <li class="flex gap-x-3">
-              <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600">
-                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <span class="text-gray-800">Nothing in premium packaging</span>
-            </li>
-
-            <li class="flex gap-x-3">
-              <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600">
-                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <span class="text-gray-800">VIP Nothing! Experience</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="mt-5 grid grid-cols-2 gap-x-4 py-4 first:pt-0 last:pb-0">
-          <div>
-            <p class="text-sm text-gray-500">Cancel anytime.</p>
-            <p class="text-sm text-gray-500">No card required.</p>
-          </div>
-
-          <div class="flex justify-end">
-            <button type="button" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none transition duration-500">Take it!</button>
-          </div>
-        </div>
-      </div>
+      {{ content.field_pricing_section_smpl_items }}
     </div>
 
     <div class="hidden md:block absolute top-0 end-0 translate-y-16 translate-x-16">
@@ -183,7 +45,7 @@
 
   <div class="mt-7 text-center">
     <p class="text-xs text-gray-400">
-      Prices in USD. No Taxes!
+      {{ 'Prices in USD. No Taxes!'|trans }}
     </p>
   </div>
 </div>
