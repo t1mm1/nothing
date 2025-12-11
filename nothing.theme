@@ -20,23 +20,12 @@ function nothing_preprocess_menu_local_task(&$variables): void {
   // Build classes array based on level and active state.
   if ($level === 'primary') {
     $classes = [
-      'block',
-      'mb-0',
-      'px-6',
-      'py-3',
-      'border-b-2',
-      'border-transparent',
-      'font-medium',
-      'text-sm',
-      'transition-all',
-      'duration-500',
-      'no-underline',
-      'hover:text-blue-600',
+      'menu-local-task-primary',
     ];
 
     if ($is_active) {
       $classes = array_merge($classes, [
-        'border-blue-500',
+        'border-blue-300',
         'text-blue-600',
       ]);
     }
@@ -44,29 +33,13 @@ function nothing_preprocess_menu_local_task(&$variables): void {
   else {
     // Secondary level.
     $classes = [
-      'block',
-      'mb-0',
-      'px-4',
-      'py-2',
-      'rounded-md',
-      'text-sm',
-      'font-medium',
-      'transition-all',
-      'duration-500',
-      'no-underline',
+      'menu-local-task-secondary',
     ];
 
     if ($is_active) {
       $classes = array_merge($classes, [
-        'bg-blue-100',
-        'text-blue-700',
-      ]);
-    }
-    else {
-      $classes = array_merge($classes, [
-        'text-gray-600',
-        'hover:bg-gray-200',
-        'hover:text-gray-900',
+        'bg-blue-300',
+        'text-blue-600',
       ]);
     }
   }
@@ -304,6 +277,21 @@ function nothing_preprocess_breadcrumb(&$variables): void {
 }
 
 /**
+ * Implements hook_preprocess_commerce_product_variation().
+ */
+function nothing_preprocess_commerce_product_variation(&$variables): void {
+  /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $product_variation */
+  $product_variation = $variables['product_variation_entity'];
+
+  if ($product_variation) {
+    $product = $product_variation->getProduct();
+    if ($product) {
+      $variables['product_url'] = $product->toUrl()->toString();
+    }
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function nothing_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
@@ -321,7 +309,7 @@ function nothing_form_alter(&$form, FormStateInterface $form_state, $form_id): v
   }
 
   if (isset($form['actions'])) {
-    _nothing_add_classes($form['actions']['#attributes'], 'flex items-center gap-6');
+    _nothing_add_classes($form['actions']['#attributes'], 'flex items-center');
   }
 
   // Fix message for cart update submit.
@@ -351,4 +339,3 @@ function _nothing_add_classes(&$attributes, string $classes): void {
     }
   }
 }
-

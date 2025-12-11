@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Theme override for product variation price field.
+ */
+#}
+{% if items %}
+  <div{{ attributes.addClass('commerce-price', 'flex items-baseline gap-2') }}>
+    <span class="price-label text-xl font-medium text-gray-600">
+      {{ 'Price'|t }}
+    </span>
+    {% for item in items %}
+      <span class="price-amount text-3xl font-bold text-blue-600">
+        {{ item.content }}
+      </span>
+    {% endfor %}
+  </div>
+{% endif %}

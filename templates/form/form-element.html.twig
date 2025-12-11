@@ -6,7 +6,7 @@
 #}
 {%
   set classes = [
-  'mb-5 max-w-3xl form-item',
+  'mb-5 last:mb-0 max-w-3xl form-item',
   'form-item-type-' ~ type,
   disabled == 'disabled' ? 'opacity-50' : '',
   errors ? 'form-item--error' : '',
@@ -43,7 +43,7 @@
 
   {# Errors #}
   {% if errors %}
-    <div class="form-item__errors mt-2 p-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg">
+    <div class="mt-2 p-3 text-sm text-red-600 bg-red-50 border border-red-300 rounded-lg">
       {{ errors }}
     </div>
   {% endif %}

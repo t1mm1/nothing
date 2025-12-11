@@ -22,10 +22,23 @@
   @apply mb-0;
 }
 
-#edit-shipping-information-shipping-profile {
-  @apply mb-8;
-}
-
 .view-commerce-checkout-order-summary {
   @apply mb-4;
+}
+
+.checkout-pane-login fieldset.form-wrapper__login-option > div,
+.layout-checkout-form .checkout-pane-shipping-information > div {
+  @apply !space-y-6;
+}
+
+.address-container-inline {
+  @apply mb-5;
+}
+
+.checkout-pane-login fieldset.form-wrapper__login-option p {
+  @apply mb-0;
+}
+
+.layout-checkout-form #edit-payment-information-billing-information .form-item-type-select {
+  @apply mt-5;
 }

@@ -4,6 +4,7 @@
  * Theme override for displaying a view as a table.
  */
 #}
+
 {% set classes = [
   responsive ? 'responsive-enabled',
   sticky ? 'sticky-header',
@@ -21,7 +22,7 @@
 
   {% if header %}
     <thead class="bg-gray-50">
-    <tr class="text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+    <tr class="text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
       {% for key, column in header %}
         <th{{ column.attributes.addClass('px-6 py-4') }} scope="col">
           {{ column.content }}
@@ -31,11 +32,11 @@
     </thead>
   {% endif %}
 
-  <tbody class="bg-white divide-y divide-gray-200">
+  <tbody class="bg-white divide-y divide-gray-300">
   {% for row in rows %}
     <tr{{ row.attributes.addClass('hover:bg-gray-50 transition-colors') }}>
       {% for key, column in row.columns %}
-        <td{{ column.attributes.addClass('px-6 py-4 text-sm text-gray-900') }}>
+        <td{{ column.attributes.addClass('px-6 py-4 text-sm text-gray-600') }}>
           {{ column.content }}
         </td>
       {% endfor %}

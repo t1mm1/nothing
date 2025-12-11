@@ -8,10 +8,10 @@
   {% for type, messages in message_list %}
     {% set classes = [
       'rounded-lg p-4 border-l-4',
-      type == 'status' ? 'bg-green-50 border-green-500',
-      type == 'warning' ? 'bg-yellow-50 border-yellow-500',
-      type == 'error' ? 'bg-red-50 border-red-500',
-      type == 'info' ? 'bg-blue-50 border-blue-500',
+      type == 'status' ? 'bg-green-50 border-green-600',
+      type == 'warning' ? 'bg-yellow-50 border-yellow-600',
+      type == 'error' ? 'bg-red-50 border-red-600',
+      type == 'info' ? 'bg-blue-50 border-blue-600',
     ] %}
 
     {% set icon_classes = [
@@ -22,10 +22,10 @@
     ] %}
 
     {% set text_classes = [
-      type == 'status' ? 'text-green-800',
-      type == 'warning' ? 'text-yellow-800',
-      type == 'error' ? 'text-red-800',
-      type == 'info' ? 'text-blue-800',
+      type == 'status' ? 'text-green-600',
+      type == 'warning' ? 'text-yellow-600',
+      type == 'error' ? 'text-red-600',
+      type == 'info' ? 'text-blue-600',
     ] %}
 
     <div{{ attributes.addClass(classes) }} role="contentinfo" aria-label="{{ status_headings[type] }}">

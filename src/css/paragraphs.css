@@ -3,7 +3,7 @@
  */
 
 .paragraph p {
-  @apply text-gray-500;
+  @apply text-gray-600;
 }
 
 .paragraph-head-title p {
@@ -20,7 +20,7 @@
 }
 
 .paragraph-head-title h2 {
-  @apply text-gray-800;
+  @apply text-gray-600;
 }
 
 /**
@@ -30,6 +30,6 @@
   @apply h-96 md:h-[56dvh] flex flex-col bg-cover bg-center bg-no-repeat rounded-xl;
 }
 .paragraph-hero-banner h2 {
-  @apply text-xl md:text-3xl lg:text-5xl text-gray-800;
+  @apply text-xl md:text-3xl lg:text-5xl text-gray-600;
 }
 

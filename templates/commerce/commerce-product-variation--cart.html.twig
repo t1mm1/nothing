@@ -6,13 +6,26 @@
 #}
 <div class="product-variation-cart">
   {% if product_entity.title.value %}
-    <div class="font-medium text-gray-900">
-      {{ product_entity.title.value }}
+    <div class="font-medium text-gray-600">
+      {% if product_url %}
+        <a href="{{ product_url }}" title="{{ product_entity.title.value }}" class="text-blue-600 transition-colors">
+          {{ product_entity.title.value }}
+        </a>
+      {% else %}
+        {{ product_entity.title.value }}
+      {% endif %}
     </div>
-  {% endif %}
-  {% if product_variation_entity.title.value != product_entity.title.value %}
-    <div class="text-sm text-gray-600">
-      {{ product_variation_entity.title.value }}
-    </div>
+  {% else %}
+    {% if product_variation_entity.title.value != product_entity.title.value %}
+      <div class="text-sm text-gray-600">
+        {% if product_url %}
+          <a href="{{ product_url }}" title="{{ product_entity.title.value }}" class="text-blue-600 transition-colors">
+            {{ product_variation_entity.title.value }}
+          </a>
+        {% else %}
+          {{ product_variation_entity.title.value }}
+        {% endif %}
+      </div>
+    {% endif %}
   {% endif %}
 </div>

@@ -1,0 +1,68 @@
+{#
+/**
+ * @file
+ * Theme override to display a product.
+ */
+#}
+
+{%
+  set classes = [
+  'commerce-product',
+  'product-view',
+  'bg-white overflow-hidden',
+]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+    {# Product Images #}
+    <div class="product-images">
+      {% if product.field_images %}
+        <div class="mb-4">
+          {{ product.field_images }}
+        </div>
+      {% else %}
+        <div class="bg-gray-300 aspect-square rounded-lg flex items-center justify-center">
+          <span class="text-gray-600 text-lg">No image available</span>
+        </div>
+      {% endif %}
+    </div>
+
+    {# Product Info #}
+    <div class="product-info flex flex-col">
+
+      {# Price #}
+      {% if product.variations %}
+        <div class="product-price mb-6">
+          <div class="text-gray-600">
+            {{ product.variations }}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="product-price flex mb-6">
+        <div class="text-xl">
+          {{ product.variation_price }}
+        </div>
+      </div>
+
+      {# Description #}
+      {% if product.body %}
+        <div class="product-description prose max-w-none mb-6 text-gray-600 leading-relaxed">
+          {{ product.body }}
+        </div>
+      {% endif %}
+
+      {# Attributes/Options #}
+      {% if product.field_product_attributes %}
+        <div class="product-attributes mb-6 space-y-4">
+          {{ product.field_product_attributes }}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</article>

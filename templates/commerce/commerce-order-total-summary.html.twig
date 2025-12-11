@@ -26,10 +26,10 @@
     {# Subtotal #}
     {% if totals.subtotal %}
       <div class="order-total-line order-total-line__subtotal text-sm">
-        <span class="order-total-line-label font-semibold text-gray-700 uppercase">
+        <span class="order-total-line-label font-semibold text-gray-600 uppercase">
           {{ 'Subtotal'|t }}
         </span>
-        <span class="order-total-line-value text-gray-900 font-medium">
+        <span class="order-total-line-value text-gray-600 font-medium">
           {{ totals.subtotal|commerce_price_format }}
         </span>
       </div>
@@ -38,10 +38,10 @@
     {# Adjustments (shipping, taxes, discounts, etc.) #}
     {% for adjustment in totals.adjustments %}
       <div class="order-total-line order-total-line__adjustment order-total-line__adjustment--{{ adjustment.type|clean_class }} text-sm">
-        <span class="order-total-line-label font-semibold text-gray-700 uppercase">
+        <span class="order-total-line-label font-semibold text-gray-600 uppercase">
           {{ adjustment.label }}
         </span>
-        <span class="order-total-line-value text-gray-900 font-medium">
+        <span class="order-total-line-value text-gray-600 font-medium">
           {{ adjustment.amount|commerce_price_format }}
         </span>
       </div>
@@ -52,10 +52,10 @@
   {# Divider and Total #}
   {% if totals.total %}
     <div class="order-total-line order-total-line__total">
-      <span class="order-total-line-label font-bold text-gray-900 uppercase text-lg">
+      <span class="order-total-line-label font-bold text-gray-600 uppercase text-lg">
         {{ 'Total'|t }}
       </span>
-      <span class="order-total-line-value text-gray-900 font-bold text-lg">
+      <span class="order-total-line-value text-gray-600 font-bold text-lg">
         {{ totals.total|commerce_price_format }}
       </span>
     </div>
