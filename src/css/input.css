@@ -6,7 +6,7 @@
 @import './password.css';
 @import './elements.css';
 @import './paragraphs.css';
-@import './ajax.css';
+@import './hide.css';
 
 @tailwind base;
 @tailwind components;

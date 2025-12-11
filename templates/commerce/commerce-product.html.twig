@@ -19,7 +19,7 @@
 
     {# Product Images #}
     <div class="product-images">
-      {% if product.field_images %}
+      {% if product_entity.field_images and not product_entity.field_images.isEmpty() %}
         <div class="mb-4">
           {{ product.field_images }}
         </div>
@@ -32,6 +32,13 @@
 
     {# Product Info #}
     <div class="product-info flex flex-col">
+
+      {# Description #}
+      {% if product.field_short_description %}
+        <div class="product-description prose max-w-none mb-6 text-gray-600 leading-relaxed">
+          {{ product.field_short_description }}
+        </div>
+      {% endif %}
 
       {# Price #}
       {% if product.variations %}
@@ -65,4 +72,9 @@
     </div>
   </div>
 
+  {% if product.field_paragraphs %}
+    <div>
+      {{ product.field_paragraphs }}
+    </div>
+  {% endif %}
 </article>
