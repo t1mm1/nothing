@@ -13,10 +13,14 @@
 {% set classes = [
   'paragraph',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished',
   'max-w-[85rem] py-10 lg:py-14 mx-auto',
 ] %}
 
 <div {{ attributes.addClass(classes) }}>
+  {{ content.contextual_links }}
+
   <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
     <div class="lg:col-span-7">
       <div class="grid grid-cols-12 gap-2 sm:gap-6 items-center lg:-translate-x-10">

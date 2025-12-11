@@ -5,7 +5,11 @@
  */
 #}
 {% set classes = [
-  'min-w-full divide-y divide-gray-200 bg-white shadow-sm rounded-lg overflow-hidden mb-4',
+  responsive ? 'responsive-enabled',
+  sticky ? 'sticky-header',
+  view ? 'view-' ~ view.id()|clean_class,
+  view ? 'view-display-' ~ view.current_display|clean_class,
+  'min-w-full divide-y divide-gray-200 bg-white shadow-sm rounded-lg overflow-hidden',
 ] %}
 
 <table{{ attributes.addClass(classes) }}>

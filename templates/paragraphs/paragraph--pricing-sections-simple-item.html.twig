@@ -13,6 +13,8 @@
 {% set classes = [
   'paragraph',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished',
   'shadow-xl shadow-gray-200 p-4 relative z-10 bg-white border border-gray-200 rounded-xl md:p-10',
 ] %}
 

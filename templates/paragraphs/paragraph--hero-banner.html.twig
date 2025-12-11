@@ -13,20 +13,22 @@
 {% set classes = [
   'paragraph',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished',
   'paragraph-hero-banner',
 ] %}
 
-<div {{ attributes.addClass(classes) }}>
-  {% if paragraph.field_image.entity %}
-    {% set image_url = file_url(paragraph.field_image.entity.fileuri) %}
+{% set image_url = file_url(paragraph.field_image.entity.fileuri) %}
 
-    <div class="paragraph-hero-image" style="background-image: url('{{ image_url }}')">
-      <div class="mt-auto w-2/3 md:max-w-xl ps-5 pb-5 md:ps-10 md:pb-10">
-        <h2>
-          {{ content.field_title }}
-        </h2>
-      </div>
+<div {{ attributes.addClass(classes) }}>
+  {{ content.contextual_links }}
+
+  <div class="paragraph-hero-image" style="background-image: url('{{ image_url }}')">
+    <div class="mt-auto w-2/3 md:max-w-xl ps-5 pb-5 md:ps-10 md:pb-10">
+      <h2>
+        {{ content.field_title }}
+      </h2>
     </div>
-  {% endif %}
+  </div>
 </div>
 

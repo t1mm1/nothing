@@ -13,10 +13,14 @@
 {% set classes = [
   'paragraph',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished',
   'max-w-[85rem] py-10 lg:py-14 mx-auto',
 ] %}
 
 <div {{ attributes.addClass(classes) }}>
+  {{ content.contextual_links }}
+
   <div class="mx-auto max-w-1xl mb-8 lg:mb-14 text-center">
     <h2 class="text-3xl lg:text-4xl text-gray-800 font-bold">
       {{ content.field_title }}

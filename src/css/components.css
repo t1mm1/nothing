@@ -37,7 +37,7 @@
   }
 
   .order-total-line__total {
-    @apply border-t border-gray-300;
+    @apply border-t-2 border-gray-300;
   }
 
   .order-total-line__total .order-total-line-label {

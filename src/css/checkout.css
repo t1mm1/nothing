@@ -21,3 +21,11 @@
 .commerce-cart-form .form-item-type-number {
   @apply mb-0;
 }
+
+#edit-shipping-information-shipping-profile {
+  @apply mb-8;
+}
+
+.view-commerce-checkout-order-summary {
+  @apply mb-4;
+}
