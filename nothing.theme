@@ -206,6 +206,7 @@ function nothing_preprocess_commerce_checkout_form(&$variables): void {
  */
 function nothing_preprocess_input(&$variables): void {
   $element = &$variables['element'];
+
   $variables['errors'] = !empty($element['#errors']);
 }
 
@@ -214,6 +215,7 @@ function nothing_preprocess_input(&$variables): void {
  */
 function nothing_preprocess_textarea(&$variables): void {
   $element = &$variables['element'];
+
   $variables['errors'] = !empty($element['#errors']);
 }
 
@@ -222,6 +224,7 @@ function nothing_preprocess_textarea(&$variables): void {
  */
 function nothing_preprocess_select(&$variables): void {
   $element = &$variables['element'];
+
   $variables['errors'] = !empty($element['#errors']);
 }
 
@@ -230,6 +233,7 @@ function nothing_preprocess_select(&$variables): void {
  */
 function nothing_preprocess_form_element(&$variables): void {
   $element = &$variables['element'];
+
   $variables['errors'] = !empty($element['#errors']) ? $element['#errors'] : NULL;
   $variables['type'] = $element['#type'] ?? NULL;
 }
@@ -333,6 +337,8 @@ function nothing_commerce_cart_update_submit($form, FormStateInterface $form_sta
     \Drupal::messenger()->addStatus(t('Your shopping cart has been updated.'));
   }
 }
+
+
 
 /**
  * Helper function to add classes from string.
