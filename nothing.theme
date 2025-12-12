@@ -107,7 +107,6 @@ function nothing_theme_suggestions_field_alter(array &$suggestions, array $varia
       $suggestions[] = 'field__paragraph_type';
     }
   }
-
 }
 
 /**
@@ -152,8 +151,14 @@ function nothing_theme_suggestions_form_alter(array &$suggestions, array $variab
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function nothing_theme_suggestions_form_element_alter(array &$suggestions, array $variables): void {
-  if (isset($variables['element']['#type'])) {
-    $suggestions[] = 'form_element__' . str_replace('-', '_', $variables['element']['#type']);
+  $element = $variables['element'];
+
+  if (isset($element['#type'])) {
+    $suggestions[] = 'form_element__' . str_replace('-', '_', $element['#type']);
+
+    if (isset($element['#context']['widget'])) {
+      $suggestions[] = 'form_element__' . str_replace('-', '_', $element['#type']) . '_' . str_replace('-', '_', $element['#context']['widget']);
+    }
   }
 }
 

@@ -4,10 +4,11 @@
  * Theme override for a radio form element wrapper.
  */
 #}
+
 {%
   set classes = [
   'form-item form-item--radio',
-  disabled == 'disabled' ? 'opacity-50' : '',
+  disabled == 'disabled' ? 'opacity-50 cursor-not-allowed' : '',
   errors ? 'form-item--error' : '',
 ]
 %}
@@ -25,13 +26,16 @@
     </span>
   {% endif %}
 
-  <div class="flex gap-3 items-start">
+  {# Radio wrapper with styling #}
+  <div class="flex gap-3 items-center p-4 rounded-lg transition-all duration-500 bg-white hover:bg-gray-50 has-[:checked]:bg-gray-50">
     {# Radio input #}
     {{ children }}
 
     {# Label after #}
     {% if label_display == 'after' %}
-      {{ label }}
+      <div class="flex-1">
+          {{ label }}
+      </div>
     {% endif %}
   </div>
 
