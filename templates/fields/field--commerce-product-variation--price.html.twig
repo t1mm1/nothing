@@ -5,8 +5,8 @@
  */
 #}
 {% if items %}
-  <div{{ attributes.addClass('commerce-price', 'flex items-baseline gap-2') }}>
-    <span class="price-label text-3xl font-medium text-gray-900">
+  <div{{ attributes.addClass('commerce-price', 'flex gap-2') }}>
+    <span class="price-label text-base font-medium text-gray-600">
       {{ 'Price'|t }}
     </span>
     {% for item in items %}

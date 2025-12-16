@@ -27,14 +27,14 @@
   {% endif %}
 
   {# Radio wrapper with styling #}
-  <div class="flex gap-3 items-center p-4 rounded-lg transition-all duration-500 bg-white hover:bg-gray-50 has-[:checked]:bg-gray-50">
+  <div class="flex gap-3 items-center px-4 mb-2 rounded-lg transition-all duration-500 bg-gray-200 hover:bg-gray-300 has-[:checked]:bg-gray-300">
     {# Radio input #}
     {{ children }}
 
     {# Label after #}
     {% if label_display == 'after' %}
       <div class="flex-1">
-          {{ label }}
+        {{ label|merge({'#attributes': {'class': ['py-4 flex']}}) }}
       </div>
     {% endif %}
   </div>

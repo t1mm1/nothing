@@ -32,7 +32,11 @@
 }
 
 .address-container-inline {
-  @apply mb-5;
+  @apply mb-5 p-6 bg-gray-100 rounded-xl;
+}
+
+.address-container-inline > .form-item {
+  @apply !mr-0 !mb-3 last:!mb-0 !block;
 }
 
 .checkout-pane-login fieldset.form-wrapper__login-option p {
@@ -41,4 +45,8 @@
 
 .layout-checkout-form #edit-payment-information-billing-information .form-item-type-select {
   @apply mt-5;
+}
+
+.field--type-address {
+  @apply mb-5;
 }

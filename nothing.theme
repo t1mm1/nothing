@@ -270,9 +270,13 @@ function nothing_preprocess_fieldset(&$variables): void {
 /**
  * Implements hook_preprocess_breadcrumb().
  */
-function nothing_preprocess_breadcrumb(&$variables): void {
+function nothing_preprocess_breadcrumb(&$variables): false|array {
   $request = \Drupal::request();
   $route_match = \Drupal::routeMatch();
+  if ($route_match->getRouteName() === 'commerce_checkout.form') {
+    return FALSE;
+  }
+
   $title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
 
   if (!empty($title)) {
@@ -283,6 +287,8 @@ function nothing_preprocess_breadcrumb(&$variables): void {
   }
 
   $variables['current_page_title'] = $title;
+
+  return $variables;
 }
 
 /**

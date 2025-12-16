@@ -33,15 +33,15 @@
     <div class="product-info flex flex-col">
 
       {# Description #}
-      {% if product.field_short_description %}
+      {% if product.field_short_description|render %}
         <div class="product-description prose max-w-none mb-6 text-gray-600 leading-relaxed">
           {{ product.field_short_description }}
         </div>
       {% endif %}
 
       {# Price #}
-      {% if product.variations %}
-        <div class="product-price mb-6">
+      {% if product.variations|render %}
+        <div class="product-price rounded-lg mb-6 p-6 bg-gray-100 border-gray-100">
           <div class="text-gray-600">
             {{ product.variations }}
           </div>

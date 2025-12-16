@@ -1,0 +1,73 @@
+/**
+ * Custom components styles pagination for Nothing theme.
+ */
+
+/* Universal Pagination styles */
+nav[role="navigation"][aria-labelledby="pagination-heading"],
+nav.pager {
+  @apply flex justify-center my-8;
+}
+
+/* Работает для обоих: .pager__items и .js-pager__items */
+.pager__items,
+.js-pager__items {
+  @apply flex items-center gap-2 list-none m-0 p-0;
+}
+
+/* Стили для li элементов в обоих вариантах */
+.pager__items > li,
+.js-pager__items > li {
+  @apply m-0;
+}
+
+/* Стили для ссылок */
+.pager__items > li > a,
+.js-pager__items > li > a {
+  @apply inline-flex items-center justify-center min-w-[2.5rem] h-10 px-3
+  text-sm font-medium text-gray-700 bg-white border border-gray-300
+  rounded-lg transition-all duration-200 hover:bg-gray-50 hover:border-gray-400
+  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+}
+
+/* Текущая страница (активная ссылка в первом варианте) */
+.pager__item.is-active a {
+  @apply bg-blue-600 text-white border-blue-600
+  hover:bg-blue-700 hover:border-blue-700 cursor-default;
+}
+
+/* Текущая страница (просто текст во втором варианте) */
+.js-pager__items > li:not(:has(a)) {
+  @apply inline-flex items-center justify-center min-w-[2.5rem] h-10 px-3
+  text-sm font-medium text-white bg-blue-600 border border-blue-600
+  rounded-lg;
+}
+
+/* First/Previous/Next specific styles */
+.pager__item--first a,
+.pager__item--previous a,
+.pager__item--next a {
+  @apply font-semibold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .pager__items,
+  .js-pager__items {
+    @apply gap-1;
+  }
+
+  .pager__items > li > a,
+  .js-pager__items > li > a {
+    @apply min-w-[2rem] h-9 px-2 text-xs;
+  }
+
+  .js-pager__items > li:not(:has(a)) {
+    @apply min-w-[2rem] h-9 px-2 text-xs;
+  }
+
+  /* Hide text on mobile, keep only symbols */
+  .pager__item--first a span[aria-hidden],
+  .pager__item--previous a span[aria-hidden] {
+    @apply text-base;
+  }
+}

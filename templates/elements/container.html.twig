@@ -11,6 +11,8 @@
 ]
 %}
 
-<div{{ attributes.addClass(classes) }}>
-  {{ children }}
-</div>
+{% if children|render %}
+  <div{{ attributes.addClass(classes) }}>
+    {{ children }}
+  </div>
+{% endif %}

@@ -16,11 +16,19 @@
           {% endif %}
 
           {% if item.url %}
-            <a href="{{ item.url }}" class="text-gray-600 hover:text-blue-900 hover:underline transition-colors font-medium duration-500">
+            <a href="{{ item.url }}" class="text-gray-600 hover:text-blue-900 hover:underline transition-colors font-medium duration-500
+              {% if item.attributes.class %}
+                {{ item.attributes.class|join(' ') }}
+              {% endif %}"
+            >
               {{ item.text }}
             </a>
           {% else %}
-            <span class="text-gray-600 font-semibold">
+            <span class="text-gray-600 font-semibold
+              {% if item.attributes.class %}
+                {{ item.attributes.class|join(' ') }}
+              {% endif %}"
+            >
               {{ item.text }}
             </span>
           {% endif %}
