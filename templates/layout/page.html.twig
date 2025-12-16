@@ -24,7 +24,7 @@
   {# Highlighted messages #}
   {% if page.highlighted %}
     <div class="bg-white">
-      <div class="container mx-auto px-6 pt-6">
+      <div class="container highlighted mx-auto">
         {{ page.highlighted }}
       </div>
     </div>
@@ -38,9 +38,15 @@
       <div class="grid grid-cols-1 gap-8">
 
         <div class="content-area">
-          {{ page.page_top }}
+          {% if page.page_top %}
+            {{ page.page_top }}
+          {% endif %}
+
           {{ page.content }}
-          {{ page.page_bottom }}
+
+          {% if page.page_bottom %}
+            {{ page.page_bottom }}
+          {% endif %}
         </div>
 
       </div>

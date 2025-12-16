@@ -5,3 +5,7 @@
 .page-title-head {
   @apply text-3xl font-bold lg:text-5xl;
 }
+
+.highlighted .head-messages {
+  @apply space-y-4 p-6;
+}
