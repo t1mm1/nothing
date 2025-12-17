@@ -131,6 +131,19 @@ function nothing_theme_suggestions_input_alter(array &$suggestions, array $varia
 }
 
 /**
+ * Implements hook_theme_suggestions_HOOK_alter() for radios.
+ */
+function nothing_theme_suggestions_radios_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['element']['#name'])) {
+    $name = $variables['element']['#name'];
+
+    if (str_contains($name, 'shipping_method')) {
+      $suggestions[] = 'radios__shipping_method';
+    }
+  }
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter() for form.
  */
 function nothing_theme_suggestions_form_alter(array &$suggestions, array $variables): void {
@@ -158,6 +171,14 @@ function nothing_theme_suggestions_form_element_alter(array &$suggestions, array
 
     if (isset($element['#context']['widget'])) {
       $suggestions[] = 'form_element__' . str_replace('-', '_', $element['#type']) . '_' . str_replace('-', '_', $element['#context']['widget']);
+    }
+
+    if ($element['#type'] === 'radio' && isset($element['#name'])) {
+      $name = $variables['element']['#name'];
+
+      if (str_contains($name, 'shipping_method')) {
+        $suggestions[] = 'form_element__radio_shipping_method';
+      }
     }
   }
 }

@@ -50,3 +50,9 @@
 .field--type-address {
   @apply mb-5;
 }
+
+.shipping-method-radios .ajax-progress,
+.shipping-method-radios .ajax-progress-throbber,
+.shipping-method-radios input{
+  @apply hidden;
+}

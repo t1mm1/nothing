@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Theme override for single shipping method radio button.
+ */
+#}
+{% set classes = [
+  'form-item--radio-shipping-method-item bg-gray-100 hover:bg-gray-200 has-[:checked]:bg-gray-200 rounded-lg p-4 transition-colors',
+] %}
+
+<div {{ attributes.addClass(classes) }}>
+  <div class="flex gap-3 items-start shipping-method-option">
+    {{ children }}
+
+    {% if label %}
+      <div class="cursor-pointer">
+        {{ label }}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if description %}
+    <div{{ description.attributes.addClass('shipping-method-description text-sm text-gray-600 leading-relaxed') }}>
+      {{ description.content }}
+    </div>
+  {% endif %}
+</div>
