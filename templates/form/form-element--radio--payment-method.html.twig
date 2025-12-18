@@ -9,19 +9,21 @@
 ] %}
 
 <div {{ attributes.addClass(classes) }}>
-  <div class="flex gap-3 items-start payment-method-option">
-    {{ children }}
+  <label class="block cursor-pointer" for="{{ element['#id'] }}">
+    <div class="flex gap-3 items-start payment-method-option">
+      {{ children }}
 
-    {% if label %}
-      <div class="cursor-pointer">
-        {{ label }}
+      {% if element['#title'] %}
+        <div class="payment-method-label">
+          {{ element['#title'] }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if description %}
+      <div{{ description.attributes.addClass('payment-method-description text-sm text-gray-600 leading-relaxed') }}>
+        {{ description.content }}
       </div>
     {% endif %}
-  </div>
-
-  {% if description %}
-    <div{{ description.attributes.addClass('payment-method-description text-sm text-gray-600 leading-relaxed') }}>
-      {{ description.content }}
-    </div>
-  {% endif %}
+  </label>
 </div>
