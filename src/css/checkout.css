@@ -51,8 +51,7 @@
   @apply mb-5;
 }
 
-.shipping-method-radios .ajax-progress,
-.shipping-method-radios .ajax-progress-throbber,
-.shipping-method-radios input{
+form[class*="commerce-checkout-flow"] .ajax-progress,
+form[class*="commerce-checkout-flow"] .ajax-progress-throbber {
   @apply hidden;
 }

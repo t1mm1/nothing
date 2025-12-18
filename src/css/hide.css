@@ -5,5 +5,5 @@
 .commerce-order-item-add-to-cart-form .ajax-progress,
 .commerce-order-item-add-to-cart-form .ajax-progress-throbber,
 [id*="commerce-order-item-add-to-cart-form"] .ajax-progress {
-  display: none !important;
+  @apply !hidden;
 }

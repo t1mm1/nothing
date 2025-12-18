@@ -5,7 +5,7 @@
  */
 #}
 {% set classes = [
-  'form-item--radio-shipping-method-item bg-gray-100 hover:bg-gray-200 has-[:checked]:bg-gray-200 rounded-lg p-4 transition-colors',
+  'shipping-method-item bg-gray-100 hover:bg-gray-200 has-[:checked]:bg-gray-200 rounded-lg p-4 transition-colors',
 ] %}
 
 <div {{ attributes.addClass(classes) }}>
@@ -21,7 +21,7 @@
 
   {% if description %}
     <div{{ description.attributes.addClass('shipping-method-description text-sm text-gray-600 leading-relaxed') }}>
-      {{ description.content }}
+      <p>{{ description.content }}</p>
     </div>
   {% endif %}
 </div>
