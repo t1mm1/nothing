@@ -22,13 +22,12 @@
 
   /* Quantity input in cart */
   td[headers*="edit-quantity-table-column"] input[name^="edit_quantity"] {
-    @apply w-20 px-3 py-2 border border-gray-300 rounded-lg text-center;
-    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    @apply w-20 px-3 py-2 border border-gray-200 rounded-lg text-center;
   }
 
   /* Remove button styling */
   td[headers*="remove-button-table-column"] input[name^="delete-order-item"] {
-    @apply py-1 px-3 text-sm bg-red-600 hover:bg-red-700 focus:ring-red-500;
+    @apply py-1 px-3 text-sm bg-red-600 hover:bg-red-700;
   }
 
   /* Order total lines */
@@ -37,7 +36,7 @@
   }
 
   .order-total-line__total {
-    @apply border-t-2 border-gray-300;
+    @apply border-t-2 border-gray-200;
   }
 
   .order-total-line__total .order-total-line-label {

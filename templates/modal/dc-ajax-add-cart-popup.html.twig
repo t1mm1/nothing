@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ *
+ * Default template for the ajax add-to-cart popup.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - product_variation: The rendered product variation fields.
+ * - product_variation_entity: The product variation entity.
+ * - cart_url: The URL of the shopping cart page.
+ */
+#}
+{% set classes = [
+  'space-y-6',
+] %}
+
+<div {{ attributes.addClass(classes) }}>
+  <div>
+    {{ 'The item has been added to your cart.'|t }}
+  </div>
+  <div>
+    {{ product_variation }}
+  </div>
+  <div class="flex gap-3 mt-4">
+    <a href="{{ cart_url }}"
+       class="inline-flex items-center justify-center px-6 py-3 font-semibold rounded-lg cursor-pointer bg-blue-600 !text-white hover:bg-blue-700 duration-500 border-none">
+      {{ 'View Cart'|t }}
+    </a>
+    <button type="button"
+      onclick="jQuery(this).closest('.ui-dialog-content').dialog('close');"
+      class="inline-flex items-center px-6 py-3 font-semibold rounded-lg cursor-pointer bg-gray-300 text-gray-600 hover:bg-gray-200 duration-500 border-none">
+      {{ 'Continue Shopping'|t }}
+    </button>
+  </div>
+</div>

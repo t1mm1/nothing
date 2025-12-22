@@ -10,7 +10,7 @@
     {% for item in items %}
       <li class="list-none">
         {% set link_classes = [
-          'py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium text-nowrap rounded-xl border transition no-underline disabled:opacity-50 disabled:pointer-events-none',
+          'py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium text-nowrap rounded-xl border transition no-underline',
           item.in_active_trail ? 'border-transparent bg-blue-600 text-white hover:bg-blue-700' : 'border-transparent bg-yellow-400 text-black hover:bg-yellow-500'
         ] %}
 

@@ -1,11 +1,11 @@
 .form-managed-file input[name*="remove_button"] {
-  @apply py-1 px-3 text-sm bg-red-600 hover:bg-red-700 focus:ring-red-500;
+  @apply py-1 px-3 text-sm bg-red-600 hover:bg-red-700;
 }
 
 .user-form .form-item-type-password_confirm,
 .user-form .form-item-type-email,
 .user-form #edit-user-picture-wrapper {
-  @apply px-5 py-3 mb-6 border bg-gray-50 border-gray-200 rounded-lg shadow-sm overflow-hidden;
+  @apply px-5 py-3 mb-6 border bg-gray-50 border-gray-300 rounded-lg shadow-sm overflow-hidden;
 }
 
 .form-item input,

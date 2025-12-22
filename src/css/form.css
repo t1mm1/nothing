@@ -31,3 +31,7 @@ details summary::-webkit-details-marker {
 .button--danger {
   @apply text-red-600;
 }
+
+.form-item-type-checkbox {
+  @apply flex items-center;
+}

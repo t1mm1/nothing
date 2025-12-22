@@ -15,7 +15,7 @@ header .main-navigation-ul li a {
 }
 
 header .main-navigation-ul li a.main-navigation-link-0 {
-  @apply text-black hover:text-yellow-400 focus:text-yellow-400 font-medium;
+  @apply text-black hover:text-yellow-400 font-medium;
 }
 
 header .main-navigation-ul li a.main-navigation-link-level {
@@ -39,7 +39,7 @@ footer .main-navigation-ul li {
 }
 
 footer .main-navigation-ul li a {
-  @apply inline-flex gap-x-2 text-sm text-gray-600 hover:text-gray-900 focus:text-gray-900 transition duration-500;
+  @apply inline-flex gap-x-2 text-sm text-gray-600 hover:text-gray-900 transition duration-500;
 }
 
 .menu-local-task-primary {

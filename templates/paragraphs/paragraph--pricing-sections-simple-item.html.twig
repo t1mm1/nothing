@@ -70,11 +70,11 @@
 
     <div class="flex justify-end">
       {% if paragraph.field_item_selected.value %}
-        <div class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-900 focus:outline-hidden focus:bg-blue-900 disabled:opacity-50 disabled:pointer-events-none">
+        <div class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-900">
           {{ content.field_link }}
         </div>
       {% else %}
-        <div class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300 bg-white text-gray-600 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 transition duration-500">
+        <div class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-600 shadow-2xs hover:bg-gray-50 transition duration-500">
           {{ content.field_link }}
         </div>
       {% endif %}

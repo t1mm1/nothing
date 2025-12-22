@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Theme override for shopping cart block.
+ *
+ * Available variables:
+ * - attributes: block attributes.
+ * - url: URL of shopping cart page.
+ * - count: number of items in the cart.
+ * - count_text: text indicating number of items: 'X items'.
+ */
+#}
+<div{{ attributes.addClass('cart-block-wrapper') }}>
+  <a href="{{ url }}"
+     class="size-10 p-2 relative flex justify-center items-center rounded-xl bg-white border border-gray-200 text-black hover:bg-gray-100 transition-colors duration-500"
+     title="{{ 'View cart'|t }}">
+    <span class="sr-only">{{ 'Cart'|t }}</span>
+
+    {# Cart SVG Icon #}
+    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="8" cy="21" r="1"/>
+      <circle cx="19" cy="21" r="1"/>
+      <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+    </svg>
+
+    {# Cart Count Badge #}
+    {% if count > 0 %}
+      <span class="cart-block--count absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+        {{ count }}
+      </span>
+    {% endif %}
+  </a>
+</div>

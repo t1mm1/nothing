@@ -56,34 +56,6 @@ function nothing_preprocess_menu_local_task(&$variables): void {
  * Implements hook_preprocess_HOOK() for page.html.twig.
  */
 function nothing_preprocess_page(&$variables): void {
-  $cart_count = 0;
-
-  if (\Drupal::moduleHandler()->moduleExists('commerce_cart')) {
-    $cart_provider = \Drupal::service('commerce_cart.cart_provider');
-    $carts = $cart_provider->getCarts();
-
-    foreach ($carts as $cart) {
-      $cache_tags[] = 'commerce_order:' . $cart->id();
-      foreach ($cart->getItems() as $item) {
-        $cart_count += (int) $item->getQuantity();
-        $cache_tags[] = 'commerce_order_item:' . $item->id();
-      }
-    }
-
-    $variables['cart_count'] = $cart_count;
-
-    // Add cache tags for cart.
-    $cache_tags[] = 'cart';
-    $variables['#cache']['tags'] = array_merge(
-      $variables['#cache']['tags'] ?? [],
-      $cache_tags
-    );
-  }
-
-  // Add cache contexts.
-  $variables['#cache']['contexts'][] = 'user';
-  $variables['#cache']['contexts'][] = 'session';
-
   // Attach mobile menu library.
   $variables['#attached']['library'][] = 'nothing/mobile-menu';
 }
