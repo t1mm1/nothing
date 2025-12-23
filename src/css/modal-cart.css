@@ -1,0 +1,67 @@
+/**
+ * Global Modal Dialog Styles (Cart)
+ */
+
+.ec-cart-popup-wrapper {
+  @apply space-y-6;
+}
+
+.ec-cart-title {
+  @apply  text-gray-600 text-lg;
+}
+
+.ec-cart-items {
+  @apply space-y-3 max-h-80 overflow-y-auto border-t mb-3 pt-3;
+}
+
+.ec-cart-items:last-child {
+  @apply !mb-0;
+}
+
+.ec-cart-item {
+  @apply flex items-center justify-between gap-4 p-3 bg-gray-50 rounded-lg border border-gray-200;
+}
+
+.ec-cart-item-left {
+  @apply flex-1 min-w-0;
+}
+
+.ec-cart-item-left h5 {
+  @apply text-sm font-medium text-gray-900 truncate;
+}
+
+.ec-cart-item-left p {
+  @apply text-sm text-gray-600 mt-1;
+}
+
+.ec-cart-item-right {
+  @apply text-right flex-shrink-0;
+}
+
+.ec-cart-item-right p {
+  @apply text-sm font-semibold;
+}
+
+.ec-cart-total {
+  @apply text-xl font-semibold mt-4 pt-4;
+}
+
+.ec-cart-total > div {
+  @apply flex justify-start items-center space-x-2;
+}
+
+.ec-cart-total > div > span {
+  @apply font-bold;
+}
+
+.ec-cart-actions {
+  @apply flex gap-3 mt-4;
+}
+
+.ec-cart-actions-view {
+  @apply inline-flex items-center justify-center px-6 py-3 font-semibold rounded-lg cursor-pointer bg-blue-600 !text-white hover:bg-blue-700 duration-500 border-none;
+}
+
+.ec-cart-actions-cancel {
+  @apply inline-flex items-center px-6 py-3 font-semibold rounded-lg cursor-pointer bg-gray-300 text-gray-600 hover:bg-gray-200 duration-500 border-none;
+}

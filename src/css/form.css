@@ -35,3 +35,7 @@ details summary::-webkit-details-marker {
 .form-item-type-checkbox {
   @apply flex items-center;
 }
+
+.form-text.address-line1 {
+  @apply -mb-4;
+}

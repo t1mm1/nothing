@@ -8,6 +8,7 @@
 @import './paragraphs.css';
 @import './pager.css';
 @import './modal.css';
+@import './modal-cart.css';
 @import './hide.css';
 
 @tailwind base;
