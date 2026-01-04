@@ -85,3 +85,12 @@ form[class*="commerce-checkout-flow"] input[type="radio"]:checked ~ [class*="-me
 .checkout-complete [class*="payment-instructions"] > h2 {
   @apply mb-4;
 }
+
+table[class*='view-commerce-file-'] .file a {
+  @apply text-blue-600;
+}
+
+.order-information,
+.customer-information {
+  @apply space-y-6;
+}
