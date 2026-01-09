@@ -1,0 +1,164 @@
+{#
+/**
+ * @file
+ * Admin notification template for new orders.
+ *
+ * Available variables:
+ * - target_entity: The order entity.
+ * - email: The email object.
+ */
+#}
+<div style="font-family: Arial, sans-serif; max-width: 768px; margin: 0; padding: 20px; background: #f5f5f5;">
+
+  {# Header #}
+  <div style="background: #2c3e50; color: white; padding: 20px; border-radius: 5px 5px 0 0;">
+    <h1 style="margin: 0; font-size: 24px;">🔔 New Order Received</h1>
+  </div>
+
+  {# Order Summary #}
+  <div style="background: white; padding: 20px; border-radius: 0 0 5px 5px;">
+
+    <h2 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
+      Order Details
+    </h2>
+
+    <table style="width: 100%; margin: 20px 0;">
+      <tr>
+        <td style="padding: 8px; background: #ecf0f1; width: 30%;"><strong>Order ID:</strong></td>
+        <td style="padding: 8px;">#{{ target_entity.id() }}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px; background: #ecf0f1;"><strong>Order Number:</strong></td>
+        <td style="padding: 8px;">{{ target_entity.getOrderNumber() }}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px; background: #ecf0f1;"><strong>Customer:</strong></td>
+        <td style="padding: 8px;">
+          {{ target_entity.getCustomer().getDisplayName() }}
+          <br>
+          <small style="color: #666;">{{ target_entity.getEmail() }}</small>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 8px; background: #ecf0f1;"><strong>Order Total:</strong></td>
+        <td style="padding: 8px;">
+          <strong style="color: #27ae60; font-size: 18px;">
+            {{ target_entity.getTotalPrice()|commerce_price_format }}
+          </strong>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 8px; background: #ecf0f1;"><strong>Payment Status:</strong></td>
+        <td style="padding: 8px;">
+          {% if target_entity.hasField('payment_gateway') and not target_entity.get('payment_gateway').isEmpty() %}
+            <span style="color: #27ae60; font-weight: bold;">✓ Paid</span>
+          {% else %}
+            <span style="color: #e74c3c;">Pending</span>
+          {% endif %}
+        </td>
+      </tr>
+    </table>
+
+    {# Order Items #}
+    <h3 style="color: #2c3e50; margin-top: 30px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+      Order Items
+    </h3>
+    <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+      <thead>
+      <tr style="background: #34495e; color: white;">
+        <th style="padding: 12px; text-align: left;">Product</th>
+        <th style="padding: 12px; text-align: center; width: 80px;">Qty</th>
+        <th style="padding: 12px; text-align: right; width: 100px;">Price</th>
+        <th style="padding: 12px; text-align: right; width: 120px;">Total</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for item in target_entity.getItems() %}
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 12px;">
+            <strong>{{ item.getTitle() }}</strong>
+            {# Show if it's a licensed product #}
+            {% if item.hasField('license') and not item.get('license').isEmpty() %}
+              <br><small style="color: #3498db;">📥 Licensed Product</small>
+            {% endif %}
+          </td>
+          <td style="padding: 12px; text-align: center;">{{ item.getQuantity()|number_format }}</td>
+          <td style="padding: 12px; text-align: right;">{{ item.getUnitPrice()|commerce_price_format }}</td>
+          <td style="padding: 12px; text-align: right;">
+            <strong>{{ item.getTotalPrice()|commerce_price_format }}</strong>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+      <tfoot>
+      <tr style="background: #f8f9fa;">
+        <td colspan="3" style="padding: 12px; text-align: right;"><strong>Subtotal:</strong></td>
+        <td style="padding: 12px; text-align: right;">
+          <strong>{{ target_entity.getTotalPrice()|commerce_price_format }}</strong>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+
+    {# Billing Information #}
+    {% set billing_profile = target_entity.getBillingProfile() %}
+    {% if billing_profile and billing_profile.hasField('address') and not billing_profile.get('address').isEmpty() %}
+      <h3 style="color: #2c3e50; margin-top: 30px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+        Billing Information
+      </h3>
+      <div style="background: #ecf0f1; padding: 15px; border-radius: 5px; margin-top: 10px;">
+        {% set address = billing_profile.get('address').first() %}
+        {% if address.given_name or address.family_name %}
+          <strong>{{ address.given_name }} {{ address.family_name }}</strong><br>
+        {% endif %}
+        {% if address.organization %}
+          {{ address.organization }}<br>
+        {% endif %}
+        {% if address.address_line1 %}
+          {{ address.address_line1 }}<br>
+        {% endif %}
+        {% if address.address_line2 %}
+          {{ address.address_line2 }}<br>
+        {% endif %}
+        {% if address.locality or address.administrative_area or address.postal_code %}
+          {{ address.locality }}{% if address.locality and address.administrative_area %}, {% endif %}{{ address.administrative_area }} {{ address.postal_code }}<br>
+        {% endif %}
+        {% if address.country_code %}
+          {{ address.country_code }}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {# Quick Admin Link #}
+    <div style="margin-top: 30px; padding: 20px; background: #e8f5e9; border-left: 4px solid #4caf50; border-radius: 3px;">
+      <h3 style="margin-top: 0; color: #2e7d32;">Quick Actions</h3>
+      <p style="margin: 10px 0;">
+        <a href="{{ url('<front>', {}, {'absolute': true}) }}admin/commerce/orders/{{ target_entity.id() }}"
+           style="display: inline-block; padding: 12px 24px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+          👁️ View Order in Admin
+        </a>
+      </p>
+      <p style="margin: 10px 0; font-size: 13px; color: #666;">
+        Direct link: {{ url('<front>', {}, {'absolute': true}) }}admin/commerce/orders/{{ target_entity.id() }}
+      </p>
+    </div>
+
+    {# Customer Comments #}
+    {% if target_entity.hasField('order_comments') and not target_entity.get('order_comments').isEmpty() %}
+      <h3 style="color: #2c3e50; margin-top: 30px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+        Customer Comments
+      </h3>
+      <div style="background: #fff9c4; padding: 15px; border-left: 4px solid #ffc107; border-radius: 3px; margin-top: 10px;">
+        {{ target_entity.get('order_comments').value|raw }}
+      </div>
+    {% endif %}
+
+  </div>
+
+  {# Footer #}
+  <div style="text-align: center; margin-top: 20px; color: #7f8c8d; font-size: 12px;">
+    <p style="margin: 5px 0;">This is an automated notification from <strong>{{ target_entity.getStore().label() }}</strong></p>
+    <p style="margin: 5px 0;">Do not reply to this email</p>
+  </div>
+
+</div>
