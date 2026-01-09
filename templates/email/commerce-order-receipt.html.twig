@@ -8,247 +8,240 @@
  * - billing_information: The billing information.
  * - shipping_information: The shipping information.
  * - payment_method: The payment method.
- * - totals: An array of order totals values with the following keys:
- *   - subtotal: The order subtotal price.
- *   - adjustments: An array of adjustment totals:
- *     - type: The adjustment type.
- *     - label: The adjustment label.
- *     - total: The adjustment total price.
- *     - weight: The adjustment weight, taken from the adjustment type.
- *   - total: The order total price.
- *
- * @ingroup themeable
+ * - totals: An array of order totals values.
  */
 #}
-<table style="margin: 15px 0 0 0; width: 100%; max-width: 768px; font-family: arial,sans-serif">
-  <tbody>
-  <tr>
-    <td>
-      <table style="width: 100%; max-width: 768px; text-align: left;">
-        <tbody>
+<div style="font-family: Arial, sans-serif; max-width: 768px; margin: 0; padding: 20px; background: #f5f5f5;">
+
+  {# Header #}
+  <div style="background: #0e69be; color: white; padding: 20px; border-radius: 5px 5px 0 0;">
+    <h1 style="margin: 0; font-size: 24px;">
+      <a href="{{ url('<front>', {}, {'absolute': true}) }}" style="color: white; text-decoration: none;">
+        {{ order_entity.getStore.label }}
+      </a>
+    </h1>
+    <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Order Confirmation</p>
+  </div>
+
+  {# Order Summary #}
+  <div style="background: white; padding: 20px; border-radius: 0 0 5px 5px;">
+
+    <h2 style="color: #2c3e50; border-bottom: 2px solid #0e69be; padding-bottom: 10px;">
+      {{ 'Order Details'|t }}
+    </h2>
+
+    <table style="width: 100%; margin: 20px 0;">
+      <tr>
+        <td style="padding: 8px; background: #ecf0f1; width: 30%;"><strong>{{ 'Order number:'|t }}</strong></td>
+        <td style="padding: 8px;">{{ order_entity.getOrderNumber }}</td>
+      </tr>
+      {% if order_entity.getPlacedTime %}
         <tr>
-          <td>
-            <a href="{{ url('<front>') }}" style="color: #0e69be; text-decoration: none; font-weight: bold; margin-top: 15px;">{{ order_entity.getStore.label }}</a>
+          <td style="padding: 8px; background: #ecf0f1;"><strong>{{ 'Order date:'|t }}</strong></td>
+          <td style="padding: 8px;">{{ order_entity.getPlacedTime|format_date('short') }}</td>
+        </tr>
+      {% endif %}
+      <tr>
+        <td style="padding: 8px; background: #ecf0f1;"><strong>{{ 'Order Total:'|t }}</strong></td>
+        <td style="padding: 8px;">
+          <strong style="color: #27ae60; font-size: 18px;">
+            {{ order_entity.getTotalPrice|commerce_price_format }}
+          </strong>
+        </td>
+      </tr>
+      {% if order_entity.hasField('payment_gateway') and not order_entity.get('payment_gateway').isEmpty() %}
+        <tr>
+          <td style="padding: 8px; background: #ecf0f1;"><strong>{{ 'Payment status:'|t }}</strong></td>
+          <td style="padding: 8px;">
+            <span style="color: #27ae60; font-weight: bold;">✓ {{ 'Paid'|t }}</span>
           </td>
         </tr>
-        </tbody>
-      </table>
-      <table style="text-align: left; width: 100%; min-width: 450px; margin: 5px 0 0 0; border: 1px solid #cccccc; border-radius: 5px; padding: 40px 30px 30px 30px;">
-        <tbody>
-        <tr>
-          <td style="font-size: 30px; padding-bottom: 30px">{{ 'Order Confirmation'|t }}</td>
-        </tr>
-        <tr>
-          <td style="padding-top:15px; padding-bottom: 15px; text-align: left; border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc">
-            <div><span style="font-weight: bold;">{{ 'Order number:'|t }}</span> {{ order_entity.getOrderNumber }}</div>
-            {% if (order_entity.getPlacedTime) %}
-              <div style="margin-top: 5px;"><span style="font-weight: bold;">{{ 'Order date:'|t }}</span> {{ order_entity.getPlacedTime|format_date('short') }}</div>
-            {% endif %}
+      {% endif %}
+    </table>
 
-            {# Display payment status if payment gateway is set #}
-            {% if order_entity.hasField('payment_gateway') and not order_entity.get('payment_gateway').isEmpty() %}
-              <div style="margin-top: 5px;">
-                <span style="font-weight: bold;">{{ 'Payment status:'|t }}</span>
-                <span style="color: #28a745; font-weight: bold;">✓ {{ 'Paid'|t }}</span>
+    {# Order Items #}
+    <h3 style="color: #2c3e50; margin-top: 30px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+      {{ 'Order Items'|t }}
+    </h3>
+
+    {% for order_item in order_entity.getItems %}
+      <div style="padding: 15px; margin: 10px 0; border: 1px solid #e0e0e0; border-radius: 5px; background: #fafafa;">
+
+        {# Product info #}
+        <div style="margin-bottom: 10px;">
+          <strong style="font-size: 16px;">{{ order_item.getQuantity|number_format }} x {{ order_item.label }}</strong>
+          <span style="float: right; font-size: 16px; color: #27ae60;">
+            <strong>{{ order_item.getTotalPrice|commerce_price_format }}</strong>
+          </span>
+          <div style="clear: both;"></div>
+        </div>
+
+        {# Link to product page #}
+        {% if order_item.getPurchasedEntity() %}
+          {% set product_variation = order_item.getPurchasedEntity() %}
+          {% if product_variation.product_id.entity %}
+            <div style="margin-top: 8px;">
+              <a href="{{ url('entity.commerce_product.canonical', {'commerce_product': product_variation.product_id.entity.id()}, {'absolute': true}) }}"
+                 style="color: #0e69be; text-decoration: none; font-size: 13px;">
+                → {{ 'View product'|t }}
+              </a>
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {# Download links for licensed products #}
+        {% if order_item.hasField('license') and not order_item.get('license').isEmpty() %}
+          {% set license = order_item.get('license').entity %}
+          {% if license %}
+            <div style="margin-top: 12px; padding: 12px; background: #e8f5e9; border-left: 3px solid #4caf50; border-radius: 3px;">
+              <div style="font-weight: bold; color: #2e7d32; margin-bottom: 8px; font-size: 14px;">
+                📥 {{ 'Your downloads:'|t }}
               </div>
-            {% endif %}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {% block order_items %}
-              <table style="padding-top: 15px; padding-bottom:15px; width: 100%">
-                <tbody style="text-align: left;">
-                {% for order_item in order_entity.getItems %}
-                  <tr>
-                    <td colspan="2" style="padding-bottom: 15px; border-bottom: 1px solid #f0f0f0;">
-                      {# Product information with price #}
-                      <div style="margin-bottom: 5px;">
-                        <strong>{{ order_item.getQuantity|number_format }} x {{ order_item.label }}</strong>
-                        <span style="float: right;">{{ order_item.getTotalPrice|commerce_price_format }}</span>
-                      </div>
 
-                      {# Link to product page #}
-                      {% if order_item.getPurchasedEntity() %}
-                        {% set product_variation = order_item.getPurchasedEntity() %}
-                        {% if product_variation.product_id.entity %}
-                          <div style="margin-top: 5px; font-size: 13px;">
-                            <a href="{{ url('entity.commerce_product.canonical', {'commerce_product': product_variation.product_id.entity.id()}, {'absolute': true}) }}"
-                               style="color: #0e69be; text-decoration: none;">
-                              → {{ 'View product'|t }}
-                            </a>
-                          </div>
-                        {% endif %}
+              {% set files_found = false %}
+
+              {# Check licensed_files field in license #}
+              {% if license.hasField('licensed_files') and not license.get('licensed_files').isEmpty() %}
+                {% set files_found = true %}
+                {% for file_item in license.get('licensed_files') %}
+                  {% set file = file_item.entity %}
+                  {% if file %}
+                    <div style="margin: 5px 0; padding: 8px; background: white; border-radius: 3px;">
+                      <a href="{{ url('commerce_file.download', {'file': file.id()}, {'absolute': true}) }}"
+                         style="color: #1976d2; text-decoration: none; font-weight: 500;">
+                        📄 {{ file.filename.value }}
+                      </a>
+                      {% if file.filesize.value %}
+                        <span style="color: #666; font-size: 11px; margin-left: 8px;">
+                          ({{ (file.filesize.value / 1024 / 1024)|number_format(2) }} MB)
+                        </span>
                       {% endif %}
-
-                      {# Download links for licensed products #}
-                      {% if order_item.hasField('license') and not order_item.get('license').isEmpty() %}
-                        {% set license = order_item.get('license').entity %}
-                        {% if license %}
-                          <div style="margin-top: 8px; padding: 10px; background: #e8f5e9; border-left: 3px solid #4caf50; border-radius: 3px;">
-                            <div style="font-weight: bold; color: #2e7d32; margin-bottom: 5px;">
-                              📥 {{ 'Your downloads:'|t }}
-                            </div>
-
-                            {% set files_found = false %}
-
-                            {# Check licensed_files field in license #}
-                            {% if license.hasField('licensed_files') and not license.get('licensed_files').isEmpty() %}
-                              {% set files_found = true %}
-                              {% for file_item in license.get('licensed_files') %}
-                                {% set file = file_item.entity %}
-                                {% if file %}
-                                  <div style="margin: 3px 0; font-size: 13px;">
-                                    • <a href="{{ url('commerce_file.download', {'file': file.id()}, {'absolute': true}) }}"
-                                         style="color: #1976d2; text-decoration: none;">
-                                      {{ file.filename.value }}
-                                    </a>
-                                    {% if file.filesize.value %}
-                                      <span style="color: #666; font-size: 11px;">
-                                    ({{ (file.filesize.value / 1024 / 1024)|number_format(2) }} MB)
-                                  </span>
-                                    {% endif %}
-                                  </div>
-                                {% endif %}
-                              {% endfor %}
-                            {% endif %}
-
-                            {# Fallback: check commerce_file in product variation #}
-                            {% if not files_found and order_item.getPurchasedEntity() %}
-                              {% set product_variation = order_item.getPurchasedEntity() %}
-                              {% if product_variation.hasField('commerce_file') and not product_variation.get('commerce_file').isEmpty() %}
-                                {% set files_found = true %}
-                                {% for file_item in product_variation.get('commerce_file') %}
-                                  {% set file = file_item.entity %}
-                                  {% if file %}
-                                    <div style="margin: 3px 0; font-size: 13px;">
-                                      • <a href="{{ url('commerce_file.download', {'file': file.id()}, {'absolute': true}) }}"
-                                           style="color: #1976d2; text-decoration: none;">
-                                        {{ file.filename.value }}
-                                      </a>
-                                      {% if file.filesize.value %}
-                                        <span style="color: #666; font-size: 11px;">
-                                      ({{ (file.filesize.value / 1024 / 1024)|number_format(2) }} MB)
-                                    </span>
-                                      {% endif %}
-                                    </div>
-                                  {% endif %}
-                                {% endfor %}
-                              {% endif %}
-                            {% endif %}
-
-                            {# If no files found #}
-                            {% if not files_found %}
-                              <div style="margin-top: 5px; font-size: 13px; color: #666;">
-                                {{ 'Your downloads will be available in your account after processing.'|t }}
-                              </div>
-                            {% endif %}
-                          </div>
-                        {% endif %}
-                      {% endif %}
-                    </td>
-                  </tr>
+                    </div>
+                  {% endif %}
                 {% endfor %}
-                </tbody>
-              </table>
-            {% endblock %}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {% if (billing_information or shipping_information) %}
-              <table style="width: 100%; padding-top:15px; padding-bottom: 15px; text-align: left; border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
-                <tbody>
-                <tr>
-                  {% if shipping_information %}
-                    <td style="padding-top: 5px; font-weight: bold;">{{ 'Shipping Information'|t }}</td>
-                  {% endif %}
-                  {% if billing_information %}
-                    <td style="padding-top: 5px; font-weight: bold;">{{ 'Billing Information'|t }}</td>
-                  {% endif %}
-                </tr>
-                <tr style="vertical-align: top;">
-                  {% if shipping_information %}
-                    <td>
-                      {% block shipping_information %}
-                        {{ shipping_information }}
-                      {% endblock %}
-                    </td>
-                  {% endif %}
-                  {% if billing_information %}
-                    <td>
-                      {% block billing_information %}
-                        {{ billing_information }}
-                      {% endblock %}
-                    </td>
-                  {% endif %}
-                </tr>
-                {% if payment_method %}
-                  <tr>
-                    <td style="font-weight: bold; margin-top: 10px;">{{ 'Payment Method'|t }}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      {% block payment_method %}
-                        {{ payment_method }}
-                      {% endblock %}
-                    </td>
-                  </tr>
+              {% endif %}
+
+              {# Fallback: check commerce_file in product variation #}
+              {% if not files_found and order_item.getPurchasedEntity() %}
+                {% set product_variation = order_item.getPurchasedEntity() %}
+                {% if product_variation.hasField('commerce_file') and not product_variation.get('commerce_file').isEmpty() %}
+                  {% set files_found = true %}
+                  {% for file_item in product_variation.get('commerce_file') %}
+                    {% set file = file_item.entity %}
+                    {% if file %}
+                      <div style="margin: 5px 0; padding: 8px; background: white; border-radius: 3px;">
+                        <a href="{{ url('commerce_file.download', {'file': file.id()}, {'absolute': true}) }}"
+                           style="color: #1976d2; text-decoration: none; font-weight: 500;">
+                          📄 {{ file.filename.value }}
+                        </a>
+                        {% if file.filesize.value %}
+                          <span style="color: #666; font-size: 11px; margin-left: 8px;">
+                            ({{ (file.filesize.value / 1024 / 1024)|number_format(2) }} MB)
+                          </span>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
                 {% endif %}
-                </tbody>
-              </table>
-            {% endif %}
-          </td>
-        </tr>
+              {% endif %}
+
+              {# If no files found #}
+              {% if not files_found %}
+                <div style="font-size: 13px; color: #666; font-style: italic;">
+                  {{ 'Your downloads will be available in your account after processing.'|t }}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endif %}
+
+      </div>
+    {% endfor %}
+
+    {# Order Totals #}
+    <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 5px;">
+      <table>
         <tr>
-          <td>
-            <p style="margin-bottom: 0;">
-              {{ 'Subtotal: @subtotal'|t({'@subtotal': totals.subtotal|commerce_price_format}) }}
-            </p>
-          </td>
+          <td style="padding: 5px;">{{ 'Subtotal'|t }}: {{ totals.subtotal|commerce_price_format }}</td>
         </tr>
         {% for adjustment in totals.adjustments %}
           <tr>
-            <td>
-              <p style="margin-bottom: 0;">
-                {{ adjustment.label }}: {{ adjustment.total|commerce_price_format }}
-              </p>
-            </td>
+            <td style="padding: 5px;">{{ adjustment.label }}: {{ adjustment.total|commerce_price_format }}</td>
           </tr>
         {% endfor %}
-        <tr>
-          <td>
-            <p style="font-size: 24px; padding-top: 15px; padding-bottom: 5px;">
-              {{ 'Order Total: @total'|t({'@total': order_entity.getTotalPrice|commerce_price_format}) }}
-            </p>
+        <tr style="border-top: 2px solid #333;">
+          <td style="padding: 10px 5px;">
+            <strong style="font-size: 18px;">{{ 'Total'|t }}:</strong> <strong style="font-size: 20px; color: #27ae60;">{{ order_entity.getTotalPrice|commerce_price_format }}</strong>
           </td>
         </tr>
-        {% if order_entity.getCustomerComments %}
-          <tr>
-            <td>
-              <table style="width: 100%; padding-top:15px; padding-bottom: 15px; text-align: left; border-top: 1px solid #cccccc; ">
-                <tbody>
-                <tr>
-                  <td style="padding-top: 5px; font-weight: bold;">{{ 'Customer comments'|t }}</td>
-                </tr>
-                <tr>
-                  <td><p>{{ order_entity.getCustomerComments|raw }}</p></td>
-                </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        {% endif %}
-        <tr>
-          <td>
-            {% block additional_information %}
-              {{ 'Thank you for your order!'|t }}
-            {% endblock %}
-          </td>
-        </tr>
-        </tbody>
       </table>
-    </td>
-  </tr>
-  </tbody>
-</table>
+    </div>
+
+    {# Billing & Shipping Information #}
+    {% if billing_information or shipping_information %}
+      <h3 style="color: #2c3e50; margin-top: 30px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+        {{ 'Address Information'|t }}
+      </h3>
+      <div style="display: table; width: 100%; margin-top: 10px;">
+        {% if billing_information %}
+          <div style="display: table-cell; width: 50%; padding: 15px; background: #ecf0f1; border-radius: 5px; vertical-align: top;">
+            <strong style="color: #2c3e50;">{{ 'Billing Information'|t }}</strong>
+            <div style="margin-top: 10px;">
+              {{ billing_information }}
+            </div>
+          </div>
+        {% endif %}
+        {% if shipping_information %}
+          <div style="display: table-cell; width: 50%; padding: 15px; background: #ecf0f1; border-radius: 5px; margin-left: 10px; vertical-align: top;">
+            <strong style="color: #2c3e50;">{{ 'Shipping Information'|t }}</strong>
+            <div style="margin-top: 10px;">
+              {{ shipping_information }}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {# Payment Method #}
+    {% if payment_method %}
+      <div style="margin-top: 20px; padding: 15px; background: #ecf0f1; border-radius: 5px;">
+        <strong style="color: #2c3e50;">{{ 'Payment Method'|t }}</strong>
+        <div style="margin-top: 5px;">
+          {{ payment_method }}
+        </div>
+      </div>
+    {% endif %}
+
+    {# Customer Comments #}
+    {% if order_entity.getCustomerComments %}
+      <h3 style="color: #2c3e50; margin-top: 30px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+        {{ 'Customer comments'|t }}
+      </h3>
+      <div style="background: #fff9c4; padding: 15px; border-left: 4px solid #ffc107; border-radius: 3px; margin-top: 10px;">
+        {{ order_entity.getCustomerComments|raw }}
+      </div>
+    {% endif %}
+
+    {# Thank You Message #}
+    <div style="margin-top: 30px; padding: 20px; background: #e8f5e9; border-left: 4px solid #4caf50; border-radius: 3px; text-align: center;">
+      <p style="margin: 0; font-size: 16px; color: #2e7d32;">
+        <strong>{{ 'Thank you for your order!'|t }}</strong>
+      </p>
+    </div>
+
+  </div>
+
+  {# Footer #}
+  <div style="text-align: center; margin-top: 20px; color: #7f8c8d; font-size: 12px;">
+    <p style="margin: 5px 0;">{{ order_entity.getStore.label }}</p>
+    <p style="margin: 5px 0;">
+      {% if order_entity.getStore.getEmail %}
+        {{ 'Questions? Contact us at'|t }}
+        <a href="mailto:{{ order_entity.getStore.getEmail }}" style="color: #0e69be;">
+          {{ order_entity.getStore.getEmail }}
+        </a>
+      {% endif %}
+    </p>
+  </div>
+
+</div>

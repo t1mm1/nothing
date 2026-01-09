@@ -13,6 +13,7 @@
   {# Header #}
   <div style="background: #2c3e50; color: white; padding: 20px; border-radius: 5px 5px 0 0;">
     <h1 style="margin: 0; font-size: 24px;">🔔 New Order Received</h1>
+    <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Administrative Notification</p>
   </div>
 
   {# Order Summary #}
@@ -63,42 +64,44 @@
     <h3 style="color: #2c3e50; margin-top: 30px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
       Order Items
     </h3>
-    <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
-      <thead>
-      <tr style="background: #34495e; color: white;">
-        <th style="padding: 12px; text-align: left;">Product</th>
-        <th style="padding: 12px; text-align: center; width: 80px;">Qty</th>
-        <th style="padding: 12px; text-align: right; width: 100px;">Price</th>
-        <th style="padding: 12px; text-align: right; width: 120px;">Total</th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for item in target_entity.getItems() %}
-        <tr style="border-bottom: 1px solid #ddd;">
-          <td style="padding: 12px;">
-            <strong>{{ item.getTitle() }}</strong>
-            {# Show if it's a licensed product #}
-            {% if item.hasField('license') and not item.get('license').isEmpty() %}
-              <br><small style="color: #3498db;">📥 Licensed Product</small>
-            {% endif %}
-          </td>
-          <td style="padding: 12px; text-align: center;">{{ item.getQuantity()|number_format }}</td>
-          <td style="padding: 12px; text-align: right;">{{ item.getUnitPrice()|commerce_price_format }}</td>
-          <td style="padding: 12px; text-align: right;">
+
+    {% for item in target_entity.getItems() %}
+      <div style="padding: 15px; margin: 10px 0; border: 1px solid #e0e0e0; border-radius: 5px; background: #fafafa;">
+        <div style="margin-bottom: 5px;">
+          <strong style="font-size: 16px;">
+            {{ item.getQuantity()|number_format }} x {{ item.getTitle() }}
+          </strong>
+          <span style="float: right; font-size: 16px; color: #27ae60;">
             <strong>{{ item.getTotalPrice()|commerce_price_format }}</strong>
+          </span>
+          <div style="clear: both;"></div>
+        </div>
+
+        <div style="font-size: 13px; color: #666;">
+          Unit price: {{ item.getUnitPrice()|commerce_price_format }}
+        </div>
+
+        {% if item.hasField('license') and not item.get('license').isEmpty() %}
+          <div style="margin-top: 8px; padding: 8px; background: #e3f2fd; border-left: 3px solid #2196f3; border-radius: 3px;">
+            <small style="color: #1976d2; font-weight: bold;">📥 Licensed Product</small>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    {# Order Totals #}
+    <div style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 5px;">
+      <table>
+        <tr style="border-top: 2px solid #333;">
+          <td style="padding: 10px 5px;">
+            <strong style="font-size: 18px;">Total:</strong>
+            <strong style="font-size: 20px; color: #27ae60;">
+              {{ target_entity.getTotalPrice()|commerce_price_format }}
+            </strong>
           </td>
         </tr>
-      {% endfor %}
-      </tbody>
-      <tfoot>
-      <tr style="background: #f8f9fa;">
-        <td colspan="3" style="padding: 12px; text-align: right;"><strong>Subtotal:</strong></td>
-        <td style="padding: 12px; text-align: right;">
-          <strong>{{ target_entity.getTotalPrice()|commerce_price_format }}</strong>
-        </td>
-      </tr>
-      </tfoot>
-    </table>
+      </table>
+    </div>
 
     {# Billing Information #}
     {% set billing_profile = target_entity.getBillingProfile() %}
@@ -107,38 +110,39 @@
         Billing Information
       </h3>
       <div style="background: #ecf0f1; padding: 15px; border-radius: 5px; margin-top: 10px;">
-        {% set address = billing_profile.get('address').first() %}
-        {% if address.given_name or address.family_name %}
-          <strong>{{ address.given_name }} {{ address.family_name }}</strong><br>
-        {% endif %}
-        {% if address.organization %}
-          {{ address.organization }}<br>
-        {% endif %}
-        {% if address.address_line1 %}
-          {{ address.address_line1 }}<br>
-        {% endif %}
-        {% if address.address_line2 %}
-          {{ address.address_line2 }}<br>
-        {% endif %}
-        {% if address.locality or address.administrative_area or address.postal_code %}
-          {{ address.locality }}{% if address.locality and address.administrative_area %}, {% endif %}{{ address.administrative_area }} {{ address.postal_code }}<br>
-        {% endif %}
-        {% if address.country_code %}
-          {{ address.country_code }}
-        {% endif %}
+        {% for address_item in billing_profile.get('address') %}
+          {% if address_item.given_name or address_item.family_name %}
+            <strong>{{ address_item.given_name }} {{ address_item.family_name }}</strong><br>
+          {% endif %}
+          {% if address_item.organization %}
+            {{ address_item.organization }}<br>
+          {% endif %}
+          {% if address_item.address_line1 %}
+            {{ address_item.address_line1 }}<br>
+          {% endif %}
+          {% if address_item.address_line2 %}
+            {{ address_item.address_line2 }}<br>
+          {% endif %}
+          {% if address_item.locality or address_item.administrative_area or address_item.postal_code %}
+            {{ address_item.locality }}{% if address_item.locality and address_item.administrative_area %}, {% endif %}{{ address_item.administrative_area }} {{ address_item.postal_code }}<br>
+          {% endif %}
+          {% if address_item.country_code %}
+            {{ address_item.country_code }}
+          {% endif %}
+        {% endfor %}
       </div>
     {% endif %}
 
     {# Quick Admin Link #}
-    <div style="margin-top: 30px; padding: 20px; background: #e8f5e9; border-left: 4px solid #4caf50; border-radius: 3px;">
+    <div style="margin-top: 30px; padding: 20px; background: #e8f5e9; border-left: 4px solid #4caf50; border-radius: 3px; text-align: center;">
       <h3 style="margin-top: 0; color: #2e7d32;">Quick Actions</h3>
-      <p style="margin: 10px 0;">
+      <p style="margin: 15px 0;">
         <a href="{{ url('<front>', {}, {'absolute': true}) }}admin/commerce/orders/{{ target_entity.id() }}"
            style="display: inline-block; padding: 12px 24px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
           👁️ View Order in Admin
         </a>
       </p>
-      <p style="margin: 10px 0; font-size: 13px; color: #666;">
+      <p style="margin: 10px 0; font-size: 12px; color: #666;">
         Direct link: {{ url('<front>', {}, {'absolute': true}) }}admin/commerce/orders/{{ target_entity.id() }}
       </p>
     </div>
@@ -157,7 +161,7 @@
 
   {# Footer #}
   <div style="text-align: center; margin-top: 20px; color: #7f8c8d; font-size: 12px;">
-    <p style="margin: 5px 0;">This is an automated notification from <strong>{{ target_entity.getStore().label() }}</strong></p>
+    <p style="margin: 5px 0;">Administrative notification from <strong>{{ target_entity.getStore().label() }}</strong></p>
     <p style="margin: 5px 0;">Do not reply to this email</p>
   </div>
 
